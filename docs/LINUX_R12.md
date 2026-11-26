@@ -1,0 +1,7 @@
+# R12: first real Linux kernel entry
+
+External diagnostic image: Linux 5.15.43 RV32 from https://github.com/bane9/RISCVBox/blob/main/linux/prebuilt/Image . Git blob SHA-1 17305ab63cdf711f7c342209c770e6fe3565e2a9; file SHA-256 9feee94f9fbb3f9a761485fb982c78977594d9c0db8b0b411b5677dfb5efc325. Embedded config confirms 32BIT/MMU/BLK_DEV_INITRD enabled and SMP/RISCV_ISA_C/FPU disabled. Binary is not redistributed here. No host emulator used for guest execution.
+
+Download and verify that SHA-256, then run `python neural_linux_r12.py --image Image --budget 512 --output entry.json`. Loader checks the Linux Image header and RV32 4 MiB alignment, allocates 64 MiB RAM by default, sets a0/a1 and satp, and enters S-mode. Reference: https://docs.kernel.org/arch/riscv/boot.html and https://docs.kernel.org/next/riscv/boot-image-header.html . `python neural_linux_r12.py` runs a synthetic header-compatible fixture, not Linux.
+
+Measured: 512 real kernel instructions retired, 1223 neural ALU calls, no guest trap, 11.645 seconds, PC 0x8040010c, early memory clearing loop. The guest did not reach UART output or Linux userspace. Ablating ALU synapses prevented first instruction retirement. Full trace and image hash in linux-r12/entry.json. This is entry execution only, not a Linux boot or DOOM demonstration. Host SBI, peripheral and separate neural circuits remain. Next: checkpointed execution, transparent acceleration and continue boot. Source server project filesystem is full; image staged in /tmp, no deletion or package installation performed.

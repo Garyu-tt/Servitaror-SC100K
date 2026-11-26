@@ -21,3 +21,4 @@ jobs:
       - run: python neural_irq_r09.py
       - run: python neural_mmu_r10.py
       - run: python neural_board_r11.py
+      - run: python neural_linux_r12.py

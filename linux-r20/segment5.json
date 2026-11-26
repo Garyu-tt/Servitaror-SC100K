@@ -1,0 +1,153 @@
+{
+  "retired": 229401,
+  "delta": 25000,
+  "pc": "0xc023637c",
+  "mode": 1,
+  "stop": "budget",
+  "fault": null,
+  "seconds": 38.617,
+  "alu_calls": 715830,
+  "serial": "",
+  "x13": "0x300",
+  "x14": "0x320",
+  "linux_booted": false,
+  "revision": "R19-corrected",
+  "image_sha256": "9feee94f9fbb3f9a761485fb982c78977594d9c0db8b0b411b5677dfb5efc325",
+  "checkpoint_sha256": "dc46781a3edb3dda4f53c137a4042340adc1e650889101d21a4ce807ceeeab71",
+  "oracle_checks": 119361,
+  "oracle_counts": {
+    "AND": 33840,
+    "SLL": 3122,
+    "SRL": 369,
+    "ADD": 42809,
+    "OR": 35640,
+    "SLTU": 1586,
+    "XOR": 1497,
+    "SLT": 339,
+    "SUB": 126,
+    "SRA": 14,
+    "MULHU": 5,
+    "MUL": 13,
+    "DIVU": 1
+  },
+  "sltiu_examples": [
+    {
+      "step": 222241,
+      "pc": "0xc0270d50",
+      "operand": "0x84000000",
+      "imm": "0x1",
+      "expected": 0
+    },
+    {
+      "step": 222711,
+      "pc": "0xc0252df4",
+      "operand": "0x8",
+      "imm": "0x80",
+      "expected": 1
+    },
+    {
+      "step": 222915,
+      "pc": "0xc02450ac",
+      "operand": "0x0",
+      "imm": "0x1",
+      "expected": 1
+    },
+    {
+      "step": 223416,
+      "pc": "0xc02450ac",
+      "operand": "0x0",
+      "imm": "0x1",
+      "expected": 1
+    },
+    {
+      "step": 223886,
+      "pc": "0xc02530d4",
+      "operand": "0x58",
+      "imm": "0x10",
+      "expected": 0
+    },
+    {
+      "step": 224384,
+      "pc": "0xc0252df4",
+      "operand": "0x23",
+      "imm": "0x80",
+      "expected": 1
+    },
+    {
+      "step": 224753,
+      "pc": "0xc02450ac",
+      "operand": "0x0",
+      "imm": "0x1",
+      "expected": 1
+    },
+    {
+      "step": 225095,
+      "pc": "0xc0252df4",
+      "operand": "0x5",
+      "imm": "0x80",
+      "expected": 1
+    },
+    {
+      "step": 225314,
+      "pc": "0xc02450ac",
+      "operand": "0x0",
+      "imm": "0x1",
+      "expected": 1
+    },
+    {
+      "step": 225634,
+      "pc": "0xc0252df4",
+      "operand": "0x1",
+      "imm": "0x80",
+      "expected": 1
+    },
+    {
+      "step": 226208,
+      "pc": "0xc0252df4",
+      "operand": "0x58",
+      "imm": "0x80",
+      "expected": 1
+    },
+    {
+      "step": 226398,
+      "pc": "0xc0252df4",
+      "operand": "0x36",
+      "imm": "0x80",
+      "expected": 1
+    },
+    {
+      "step": 226984,
+      "pc": "0xc0252df4",
+      "operand": "0x1",
+      "imm": "0x80",
+      "expected": 1
+    },
+    {
+      "step": 227338,
+      "pc": "0xc0252df4",
+      "operand": "0x1",
+      "imm": "0x80",
+      "expected": 1
+    },
+    {
+      "step": 227704,
+      "pc": "0xc0252df4",
+      "operand": "0x1",
+      "imm": "0x80",
+      "expected": 1
+    },
+    {
+      "step": 228207,
+      "pc": "0xc0252df4",
+      "operand": "0xf",
+      "imm": "0x80",
+      "expected": 1
+    }
+  ],
+  "cache": {
+    "hits": 32556,
+    "misses": 50,
+    "flushes": 0,
+    "hit_rate": 0.9984665399006318
+  }
+}

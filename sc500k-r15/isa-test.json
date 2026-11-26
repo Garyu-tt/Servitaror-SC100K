@@ -1,0 +1,6 @@
+{
+  "status": "PASS",
+  "advertised": "rv32ima",
+  "legacy_bad_scan": "acefimnrs",
+  "legacy_fixed_scan": "aim"
+}

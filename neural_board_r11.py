@@ -29,7 +29,9 @@ def dtb(size=RAM_SIZE):
     begin('chosen');prop('stdout-path',string('/soc/serial@10000000'));prop('bootargs',string('console=ttyS0 earlycon=uart8250,mmio,0x10000000'));end()
     begin('memory@80000000');prop('device_type',string('memory'));prop('reg',be(0,RAM,0,size));end()
     begin('cpus');prop('#address-cells',be(1));prop('#size-cells',be(0));prop('timebase-frequency',be(1000000))
-    begin('cpu@0');prop('device_type',string('cpu'));prop('reg',be(0));prop('status',string('okay'));prop('compatible',string('riscv'));prop('riscv,isa',string('rv32ima_zicsr_zifencei'));prop('mmu-type',string('riscv,sv32'))
+    # Legacy ISA spelling: Linux 5.15 scans each letter (including Z names).
+    # Zicsr and Zifencei remain implemented in the CPU.
+    begin('cpu@0');prop('device_type',string('cpu'));prop('reg',be(0));prop('status',string('okay'));prop('compatible',string('riscv'));prop('riscv,isa',string('rv32ima'));prop('mmu-type',string('riscv,sv32'))
     begin('interrupt-controller');prop('#interrupt-cells',be(1));prop('interrupt-controller',b'');prop('compatible',string('riscv,cpu-intc'));prop('phandle',be(1));end();end();end()
     begin('soc');prop('#address-cells',be(2));prop('#size-cells',be(2));prop('compatible',string('simple-bus'));prop('ranges',b'')
     begin('serial@10000000');prop('compatible',string('ns16550a'));prop('reg',be(0,UART,0,8));prop('clock-frequency',be(3686400));prop('reg-shift',be(0));prop('reg-io-width',be(1));end();end();end();body.extend(be(9))

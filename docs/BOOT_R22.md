@@ -1,0 +1,5 @@
+# R22: Linux bootconsole enabled
+
+Continued the corrected R19 lineage from R21 segment5 with unchanged evaluator. Seven bounded 10000-instruction segments retired another 70000 guest instructions, cumulative 407401; 1565251 ALU calls, 332818 new arithmetic oracle comparisons, no mismatches or new traps. The only cumulative trap remains the expected relocation fault. Actual UART buffer now contains 424 bytes, verified against the runner report. Linux identifies SC100K R11, detects uart8250 MMIO at 0x10000000 and reports bootconsole enabled. The last five segments produce no additional serial bytes but change PC and other state; the kernel has not been shown to be stuck or to have finished memory initialization.
+
+Checkpoint SHA-256 5b5b0ca4050bc5b5006dccb26686894aef62ab4771128ee2caed3579553da29f, retained locally. R21 CI 2/2 PASS. No code change, guest output injection, skipped instructions, or claim of full boot. SBI calls and interrupts still zero; userspace and DOOM not reached. Fixed neural circuits and host dispatch/peripherals remain; not an integrated plastic GENESIS graph. Supports #9.

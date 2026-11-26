@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "instructions": 32,
+  "full_snapshot_equal": true,
+  "reference_seconds": 0.02426139684394002,
+  "trace_seconds": 0.03987195109948516,
+  "trace_events": 241
+}

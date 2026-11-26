@@ -1,0 +1,35 @@
+{
+  "retired": 828457,
+  "delta": 32,
+  "boundaries": 32,
+  "events": 241,
+  "measured_spikes": 2735525,
+  "seconds": 0.07464862521737814,
+  "trace_sha256": "b544401008ec05bd22da35d59ccd46d239225a7a949aef609320b427f1b894d6",
+  "regions": [
+    {
+      "name": "alu",
+      "neurons": 28650,
+      "edges": 279000,
+      "representatives": 5730
+    },
+    {
+      "name": "decoder",
+      "neurons": 10040,
+      "edges": 97200,
+      "representatives": 2008
+    },
+    {
+      "name": "control",
+      "neurons": 2460,
+      "edges": 14000,
+      "representatives": 492
+    }
+  ],
+  "coordinates_available": false,
+  "coordinates_status": "GENESIS spatial coordinates absent; do not invent anatomy",
+  "graph_sha256": "9c627a388fb7e5e2874db1ff7605b58d6d01bd1603ceb7decdb2878cfc713dcc",
+  "scope": "explicit ALU, decoder, control only; no RAM, disk, GPU, register or CSR activation trace",
+  "oracle_checks": 177,
+  "linux_booted": false
+}

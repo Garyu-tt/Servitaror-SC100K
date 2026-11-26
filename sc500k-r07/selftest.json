@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "guest_instructions": 15,
+  "palette_entries": 256,
+  "rgb_bits": 24,
+  "keyboard_capacity": 32,
+  "guest_key_events": [
+    "0x11e",
+    "0x1e"
+  ],
+  "rgb_first_pixel": [
+    18,
+    52,
+    86
+  ],
+  "rgb_sha256": "6c42449cb065137d198e2582dd6a940aee034a80a016a6bf46dd47ccfe815aa0",
+  "fifo_wraparound": true,
+  "overflow_rejected": true,
+  "checks": 5,
+  "exact_checkpoint": true,
+  "estimated_cells": 437560
+}

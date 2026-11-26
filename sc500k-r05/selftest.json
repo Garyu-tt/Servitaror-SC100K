@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "selector_checks": 1096,
+  "read_comparisons": 1036,
+  "full_coefficients_equal": true,
+  "ablation_cases": 2,
+  "corrupt_row_cases": 2,
+  "reference_read_seconds": 0.9346905769780278,
+  "native_read_seconds": 0.062112551648169756,
+  "speedup": 15.048336482334323,
+  "seconds": 5.489802153781056
+}

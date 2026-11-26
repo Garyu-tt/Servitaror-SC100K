@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "control_vectors": 1152,
+  "pc_vectors": 256,
+  "errors": 0,
+  "ablation_rejected": true,
+  "misalignment_cases": 2,
+  "control_neurons": 2460,
+  "control_synapses": 14000,
+  "pc_neurons": 960,
+  "total_logical_neurons": 78920,
+  "test_seconds": 1.371,
+  "guest_instructions": 64,
+  "guest_ips": 74.28,
+  "neural_alu_calls": 145,
+  "neural_control_calls": 64,
+  "neural_pc_commits": 64,
+  "linux_booted": false,
+  "limitations": "Host extracts fields, dispatches instruction classes, gates bus operations and handles traps. Fixed separate circuits, not continuous GENESIS. No privileged ISA or Linux yet."
+}

@@ -21,10 +21,11 @@ add('JALR',0x707f,0x67)
 add('FENCE',0x707f,0x0f)
 add('EBREAK',MASK,0x00100073)
 class Decoder(Circuit):
+    patterns=tuple(PATTERNS)
     def compile(self):
         self.bits=[self.input(str(i)) for i in range(32)]
         self.outputs=[]
-        for name,mask,value in PATTERNS:
+        for name,mask,value in self.patterns:
             q=[self.bits[i] if value>>i&1 else self.neg(self.bits[i]) for i in range(32) if mask>>i&1]
             while len(q)>1:q=[self.AND(q[i],q[i+1]) if i+1<len(q) else q[i] for i in range(0,len(q),2)]
             self.outputs.append(q[0])
@@ -43,7 +44,7 @@ class Decoder(Circuit):
             syn=np.bincount(inv,weights=spike[src]*w*(not ablate),minlength=len(targets)).astype(np.int32)
             spike[targets]=(np.clip(syn//3,-32,31)>=11)
         matches=[]
-        for (name,_,_),p in zip(PATTERNS,self.outputs):
+        for (name,_,_),p in zip(self.patterns,self.outputs):
             lo,hi=(int(spike[list(r)].sum()) for r in p)
             if (lo,hi) not in ((5,0),(0,5)):raise RuntimeError('invalid neural decode rails')
             if hi:matches.append(name)

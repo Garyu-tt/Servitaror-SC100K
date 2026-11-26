@@ -80,6 +80,10 @@ class ControlCPU(RegisterCPU):
         return self.extension(name,a,b),None
     def finish_extension(self,name,a,b):
         pass
+    def prepare_instruction_extension(self,name,a,b,ins):
+        return self.prepare_extension(name,a,b)
+    def finish_instruction_extension(self,name,a,b,ins):
+        self.finish_extension(name,a,b)
     def step(self):
         if self.halted:raise RuntimeError('already halted')
         pc=self.pc;ins=self.load(pc,4);name=self.decoder.decode(ins);self.decode_calls+=1
@@ -112,14 +116,14 @@ class ControlCPU(RegisterCPU):
         elif name=='FENCE':pass
         elif name=='EBREAK':halt=True
         else:
-            result,store=self.prepare_extension(name,a,b);pending=(rd,result)
+            result,store=self.prepare_instruction_extension(name,a,b,ins);pending=(rd,result)
         nxt,taken=self.control.route(name,seq,target,x,s,u)
         # IALIGN=32; detect target fault before changing registers or memory.
         if nxt&3:raise RuntimeError('instruction address misaligned')
         if store:self.store(*store)
         if pending:self.rd(*pending)
         self.pc=nxt;self.steps+=1;self.halted=halt
-        self.finish_extension(name,a,b)
+        self.finish_instruction_extension(name,a,b,ins)
 
 def main():
     ctrl=Control();rng=random.Random(3110);checks=0;t=time.perf_counter()

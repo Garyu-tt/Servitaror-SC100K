@@ -1,0 +1,5 @@
+# R07: preliminary Zicsr and neural CSR bank
+
+All six register/immediate Zicsr instruction forms use neural classification and the existing Q4 ALU for read/modify/write. Eighteen mutable and five fixed CSRs are backed by dual-rail spike cells, with three supervisor aliases. Host address routing, privilege and preliminary WARL policy remain conventional control. Read-only and zero source suppression, alias masks, alignment masks and failure before architectural commit are tested. MISA advertises RV32IMA only, not unimplemented S/U modes. This is storage and access policy, not yet actual trap, interrupt, privilege transition or MMU semantics.
+
+Run `python neural_csr_r07.py`. Host run: 194 decode vectors, 64 randomized scratch readbacks, five access fault cases, alias/WARL and ablation checks, eleven guest instructions including nine CSR operations. R04–R06 regression smoke scripts passed. Estimated budget 120650 logical cells, not a measured continuous GENESIS graph. Linux has not booted.

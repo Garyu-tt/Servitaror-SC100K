@@ -1,0 +1,26 @@
+{
+  "status": "PASS",
+  "decode_vectors": 194,
+  "csr_ops": [
+    "CSRRW",
+    "CSRRS",
+    "CSRRC",
+    "CSRRWI",
+    "CSRRSI",
+    "CSRRCI"
+  ],
+  "mutable_csrs": 18,
+  "fixed_csrs": 5,
+  "aliases": 3,
+  "random_storage_checks": 64,
+  "access_fault_cases": 5,
+  "ablation_rejected": true,
+  "guest_instructions": 11,
+  "guest_csr_ops": 9,
+  "guest_seconds": 0.23,
+  "csr_budget_cells": 8320,
+  "decoder_neurons": 8280,
+  "total_budget_cells": 120650,
+  "linux_booted": false,
+  "limitations": "Preliminary CSR masks and storage; host address routing, access policy, no privilege transitions, architectural traps, counters, interrupts, MMU or complete privileged conformance. MISA advertises RV32IMA only; S/U bits remain clear until privilege support exists."
+}

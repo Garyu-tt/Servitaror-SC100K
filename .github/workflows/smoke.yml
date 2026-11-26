@@ -15,3 +15,4 @@ jobs:
       - run: python neural_register_r03.py
       - run: python neural_control_r04.py
       - run: python neural_math_r05.py
+      - run: python neural_atomic_r06.py

@@ -76,6 +76,10 @@ class ControlCPU(RegisterCPU):
     def pc(self,v):self.counter.commit(v)
     def extension(self,name,a,b):
         raise RuntimeError("unrouted neural instruction")
+    def prepare_extension(self,name,a,b):
+        return self.extension(name,a,b),None
+    def finish_extension(self,name,a,b):
+        pass
     def step(self):
         if self.halted:raise RuntimeError('already halted')
         pc=self.pc;ins=self.load(pc,4);name=self.decoder.decode(ins);self.decode_calls+=1
@@ -107,13 +111,15 @@ class ControlCPU(RegisterCPU):
             target=self.alu('AND',self.alu('ADD',a,imm),0xfffffffe);pending=(rd,seq)
         elif name=='FENCE':pass
         elif name=='EBREAK':halt=True
-        else:pending=(rd,self.extension(name,a,b))
+        else:
+            result,store=self.prepare_extension(name,a,b);pending=(rd,result)
         nxt,taken=self.control.route(name,seq,target,x,s,u)
         # IALIGN=32; detect target fault before changing registers or memory.
         if nxt&3:raise RuntimeError('instruction address misaligned')
         if store:self.store(*store)
         if pending:self.rd(*pending)
         self.pc=nxt;self.steps+=1;self.halted=halt
+        self.finish_extension(name,a,b)
 
 def main():
     ctrl=Control();rng=random.Random(3110);checks=0;t=time.perf_counter()

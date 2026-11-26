@@ -1,0 +1,30 @@
+{
+  "status": "PASS",
+  "atomic_operations": [
+    "LR.W",
+    "SC.W",
+    "AMOSWAP.W",
+    "AMOADD.W",
+    "AMOXOR.W",
+    "AMOAND.W",
+    "AMOOR.W",
+    "AMOMIN.W",
+    "AMOMAX.W",
+    "AMOMINU.W",
+    "AMOMAXU.W"
+  ],
+  "decode_vectors": 386,
+  "amo_vectors": 126,
+  "guest_instructions": 18,
+  "guest_atomic_ops": 14,
+  "guest_seconds": 0.202,
+  "neural_minmax_selects": 4,
+  "lr_sc_success_failure": true,
+  "overlap_invalidation": true,
+  "disjoint_store_preserves": true,
+  "misalignment_no_side_effect": true,
+  "decoder_neurons": 7740,
+  "total_budget_cells": 111790,
+  "linux_booted": false,
+  "limitations": "Single hart serialized RAM; aq/rl decoded, no separate ordering effect on synchronous bus. Host reservation metadata and bus atomicity; no multi-hart, DMA, MMIO, privileged traps or continuous integrated GENESIS."
+}

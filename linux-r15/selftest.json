@@ -1,0 +1,7 @@
+{
+  "status": "PASS",
+  "register_reads": 1536,
+  "register_writes": 512,
+  "full_state_equal": true,
+  "ablation_cases": 4
+}

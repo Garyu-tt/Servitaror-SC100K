@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "mapping_checks": 27,
+  "architectural_state_equal": true,
+  "fixture_steps": 64,
+  "cache": {
+    "hits": 13,
+    "misses": 12,
+    "flushes": 5,
+    "hit_rate": 0.52
+  }
+}

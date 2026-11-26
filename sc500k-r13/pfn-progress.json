@@ -1,0 +1,73 @@
+{
+  "status": "PASS",
+  "profile": "specific audited RV32 Linux image, PC and return-address guarded",
+  "rows": [
+    {
+      "retired": 1058425,
+      "pc": "0xc0275738",
+      "traps": 1,
+      "phase": "page-descriptor-init",
+      "pfn_current": 532189,
+      "pfn_limit": 540672,
+      "pfn_remaining": 8483,
+      "image_sha256": "9feee94f9fbb3f9a761485fb982c78977594d9c0db8b0b411b5677dfb5efc325",
+      "checkpoint_sha256": "ed05058087cda73ea2fe2135c4bc4513a227b6e521e8dfb224c16e6821e16d55"
+    },
+    {
+      "retired": 1078425,
+      "pc": "0xc0253100",
+      "traps": 1,
+      "phase": "page-descriptor-init",
+      "pfn_current": 532506,
+      "pfn_limit": 540672,
+      "pfn_remaining": 8166,
+      "image_sha256": "9feee94f9fbb3f9a761485fb982c78977594d9c0db8b0b411b5677dfb5efc325",
+      "checkpoint_sha256": "917d3f8cbe0c6ef42c7a3e94ca461550a2160f0ef40930dc3c418828eb6004e5"
+    },
+    {
+      "retired": 1098425,
+      "pc": "0xc0275714",
+      "traps": 1,
+      "phase": "page-descriptor-init",
+      "pfn_current": 532823,
+      "pfn_limit": 540672,
+      "pfn_remaining": 7849,
+      "image_sha256": "9feee94f9fbb3f9a761485fb982c78977594d9c0db8b0b411b5677dfb5efc325",
+      "checkpoint_sha256": "44ef84473944f7c8de9098fdfe251f7842365c14c228c7a1c727cdd5042a7e3f"
+    },
+    {
+      "retired": 1118425,
+      "pc": "0xc02530d8",
+      "traps": 1,
+      "phase": "page-descriptor-init",
+      "pfn_current": 533141,
+      "pfn_limit": 540672,
+      "pfn_remaining": 7531,
+      "image_sha256": "9feee94f9fbb3f9a761485fb982c78977594d9c0db8b0b411b5677dfb5efc325",
+      "checkpoint_sha256": "17c49d109ef36cc8331f768ca543c135d32d934fd81d2c60d2960559dcb9f9db"
+    },
+    {
+      "retired": 1138425,
+      "pc": "0xc02531c4",
+      "traps": 1,
+      "phase": "page-descriptor-init",
+      "pfn_current": 533458,
+      "pfn_limit": 540672,
+      "pfn_remaining": 7214,
+      "image_sha256": "9feee94f9fbb3f9a761485fb982c78977594d9c0db8b0b411b5677dfb5efc325",
+      "checkpoint_sha256": "6e6f8d63f1b2a461c52bf20a30e982f685f54357522cb74dcd06886c89711480"
+    },
+    {
+      "retired": 1158425,
+      "pc": "0xc02756f8",
+      "traps": 1,
+      "phase": "page-descriptor-init",
+      "pfn_current": 533775,
+      "pfn_limit": 540672,
+      "pfn_remaining": 6897,
+      "image_sha256": "9feee94f9fbb3f9a761485fb982c78977594d9c0db8b0b411b5677dfb5efc325",
+      "checkpoint_sha256": "b1421f7da3a3e0343b76b7c70d695a21f9639326b7ae190c99db1c889ee1915c"
+    }
+  ],
+  "progress_pages": 1586
+}

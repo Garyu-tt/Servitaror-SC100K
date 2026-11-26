@@ -1,0 +1,183 @@
+{
+  "status": "PASS",
+  "profile": "specific audited RV32 Linux image, PC and return-address guarded",
+  "rows": [
+    {
+      "retired": 1158425,
+      "pc": "0xc02756f8",
+      "traps": 1,
+      "phase": "page-descriptor-init",
+      "pfn_current": 533775,
+      "pfn_limit": 540672,
+      "pfn_remaining": 6897,
+      "image_sha256": "9feee94f9fbb3f9a761485fb982c78977594d9c0db8b0b411b5677dfb5efc325",
+      "checkpoint_sha256": "b1421f7da3a3e0343b76b7c70d695a21f9639326b7ae190c99db1c889ee1915c"
+    },
+    {
+      "retired": 1188425,
+      "pc": "0xc0253100",
+      "traps": 1,
+      "phase": "page-descriptor-init",
+      "pfn_current": 534251,
+      "pfn_limit": 540672,
+      "pfn_remaining": 6421,
+      "image_sha256": "9feee94f9fbb3f9a761485fb982c78977594d9c0db8b0b411b5677dfb5efc325",
+      "checkpoint_sha256": "3429ea59ff9cc4b5f05b3c082c2b88348df2f6e52032c40693005410ce6f2524"
+    },
+    {
+      "retired": 1218425,
+      "pc": "0xc0253128",
+      "traps": 1,
+      "phase": "page-descriptor-init",
+      "pfn_current": 534726,
+      "pfn_limit": 540672,
+      "pfn_remaining": 5946,
+      "image_sha256": "9feee94f9fbb3f9a761485fb982c78977594d9c0db8b0b411b5677dfb5efc325",
+      "checkpoint_sha256": "0b25b0b574c4f0d7b4c7242dc0329d660462680427b3dd1bca0d5ab062a2b1f4"
+    },
+    {
+      "retired": 1248425,
+      "pc": "0xc02531bc",
+      "traps": 1,
+      "phase": "page-descriptor-init",
+      "pfn_current": 535202,
+      "pfn_limit": 540672,
+      "pfn_remaining": 5470,
+      "image_sha256": "9feee94f9fbb3f9a761485fb982c78977594d9c0db8b0b411b5677dfb5efc325",
+      "checkpoint_sha256": "f4204ef8b4e8e546c61c912f66ac2ea433bd9f0b8adde5be7f505cf2dda0d69c"
+    },
+    {
+      "retired": 1278425,
+      "pc": "0xc0275720",
+      "traps": 1,
+      "phase": "page-descriptor-init",
+      "pfn_current": 535677,
+      "pfn_limit": 540672,
+      "pfn_remaining": 4995,
+      "image_sha256": "9feee94f9fbb3f9a761485fb982c78977594d9c0db8b0b411b5677dfb5efc325",
+      "checkpoint_sha256": "eb24d9c4b520a31b045e118e0c9669c02d10e974c9229b4d370855928e9d8ec2"
+    },
+    {
+      "retired": 1308425,
+      "pc": "0xc027562c",
+      "traps": 1,
+      "phase": "page-descriptor-init",
+      "pfn_current": 536154,
+      "pfn_limit": 540672,
+      "pfn_remaining": 4518,
+      "image_sha256": "9feee94f9fbb3f9a761485fb982c78977594d9c0db8b0b411b5677dfb5efc325",
+      "checkpoint_sha256": "21d29ed00323e80775b0f55dfb05f0bc4c9270b223e553bfeb305703f05db83a"
+    },
+    {
+      "retired": 1338425,
+      "pc": "0xc0275704",
+      "traps": 1,
+      "phase": "page-descriptor-init",
+      "pfn_current": 536629,
+      "pfn_limit": 540672,
+      "pfn_remaining": 4043,
+      "image_sha256": "9feee94f9fbb3f9a761485fb982c78977594d9c0db8b0b411b5677dfb5efc325",
+      "checkpoint_sha256": "8a50b1e825636017e789a1f2e37ffdd94073ca29f2b633291bb32a49d7249bff"
+    },
+    {
+      "retired": 1368425,
+      "pc": "0xc025310c",
+      "traps": 1,
+      "phase": "page-descriptor-init",
+      "pfn_current": 537105,
+      "pfn_limit": 540672,
+      "pfn_remaining": 3567,
+      "image_sha256": "9feee94f9fbb3f9a761485fb982c78977594d9c0db8b0b411b5677dfb5efc325",
+      "checkpoint_sha256": "a5add1e662e70c72e589173e816da22339d65bd3f946efd0ede532702be41f35"
+    },
+    {
+      "retired": 1398425,
+      "pc": "0xc02531a0",
+      "traps": 1,
+      "phase": "page-descriptor-init",
+      "pfn_current": 537581,
+      "pfn_limit": 540672,
+      "pfn_remaining": 3091,
+      "image_sha256": "9feee94f9fbb3f9a761485fb982c78977594d9c0db8b0b411b5677dfb5efc325",
+      "checkpoint_sha256": "e7ebb86d188dc88a43aa24a045d2bb90663be638112bd86536053c05aebd4755"
+    },
+    {
+      "retired": 1428425,
+      "pc": "0xc02531c8",
+      "traps": 1,
+      "phase": "page-descriptor-init",
+      "pfn_current": 538056,
+      "pfn_limit": 540672,
+      "pfn_remaining": 2616,
+      "image_sha256": "9feee94f9fbb3f9a761485fb982c78977594d9c0db8b0b411b5677dfb5efc325",
+      "checkpoint_sha256": "d6473c372a8b1624d195f9388352c7f0ad8e73ebc6519208994adb7861cf9026"
+    },
+    {
+      "retired": 1458425,
+      "pc": "0xc027573c",
+      "traps": 1,
+      "phase": "page-descriptor-init",
+      "pfn_current": 538532,
+      "pfn_limit": 540672,
+      "pfn_remaining": 2140,
+      "image_sha256": "9feee94f9fbb3f9a761485fb982c78977594d9c0db8b0b411b5677dfb5efc325",
+      "checkpoint_sha256": "e9002e9ada95f37d2aa6e13d29e7705f983cb27304db41aef113849b63c96b22"
+    },
+    {
+      "retired": 1488425,
+      "pc": "0xc02756e8",
+      "traps": 1,
+      "phase": "page-descriptor-init",
+      "pfn_current": 539008,
+      "pfn_limit": 540672,
+      "pfn_remaining": 1664,
+      "image_sha256": "9feee94f9fbb3f9a761485fb982c78977594d9c0db8b0b411b5677dfb5efc325",
+      "checkpoint_sha256": "cfa223ff1b9de14b9bb61d55e73d430a1e773298dfb26fc947e58faa78231162"
+    },
+    {
+      "retired": 1518425,
+      "pc": "0xc02530dc",
+      "traps": 1,
+      "phase": "page-descriptor-init",
+      "pfn_current": 539484,
+      "pfn_limit": 540672,
+      "pfn_remaining": 1188,
+      "image_sha256": "9feee94f9fbb3f9a761485fb982c78977594d9c0db8b0b411b5677dfb5efc325",
+      "checkpoint_sha256": "29bfc16467bcc44313b9ef62998162f4a6cd365c6df59a82b5acc672e2ab2516"
+    },
+    {
+      "retired": 1548425,
+      "pc": "0xc0253118",
+      "traps": 1,
+      "phase": "page-descriptor-init",
+      "pfn_current": 539959,
+      "pfn_limit": 540672,
+      "pfn_remaining": 713,
+      "image_sha256": "9feee94f9fbb3f9a761485fb982c78977594d9c0db8b0b411b5677dfb5efc325",
+      "checkpoint_sha256": "c743b566f021c6c4cc6e372ec68b71f44587c57e72ee496772c352eea3014294"
+    },
+    {
+      "retired": 1578425,
+      "pc": "0xc02531ac",
+      "traps": 1,
+      "phase": "page-descriptor-init",
+      "pfn_current": 540435,
+      "pfn_limit": 540672,
+      "pfn_remaining": 237,
+      "image_sha256": "9feee94f9fbb3f9a761485fb982c78977594d9c0db8b0b411b5677dfb5efc325",
+      "checkpoint_sha256": "46ab5e26b81af8814aade366ffe4212b7f12115ddf26eca3712b6698e69662dc"
+    },
+    {
+      "retired": 1608425,
+      "pc": "0xc003c2c0",
+      "traps": 1,
+      "phase": "unclassified",
+      "pfn_current": null,
+      "pfn_limit": null,
+      "pfn_remaining": null,
+      "image_sha256": "9feee94f9fbb3f9a761485fb982c78977594d9c0db8b0b411b5677dfb5efc325",
+      "checkpoint_sha256": "ad47901388a0046e15a4831e7ffe36195c32e5d2ea513f38f57ec006d372e872"
+    }
+  ],
+  "progress_pages": null
+}

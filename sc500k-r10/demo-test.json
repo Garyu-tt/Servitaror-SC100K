@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "fixture_instructions": 5,
+  "uart": "X",
+  "pause_no_events": true,
+  "input_fifo": true,
+  "initial_before_first_instruction": true,
+  "trace_count_equal": true,
+  "coordinates_missing_reported": true
+}

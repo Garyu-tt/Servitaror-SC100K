@@ -7,7 +7,7 @@ import argparse,base64,hashlib,json,random,time
 from pathlib import Path
 import numpy as np
 from neural_trace_r34 import Recorder
-from neural_io_r33 import restore,upgrade,save
+from neural_uart_r36 import restore,save,fresh
 from neural_paged_r29 import board,SynapticBoard,PagedCrossbar
 from neural_devices_r30 import attach
 from neural_framebuffer_r32 import upgrade as visual_upgrade
@@ -71,38 +71,38 @@ class Session:
     def snapshot(self):
         b=self.b
         return dict(sequence=self.seq,boundary=b.boundaries,retired=b.steps,pc=hex(b.pc),running=self.running,
-            uart=bytes(b.serial[-65536:]).decode(errors='replace'),rgb=base64.b64encode(b.rgb()).decode(),
+            uart=bytes(b.serial[-65536:]).decode(errors='replace'),rx_free=b.rx.size-b.rx.count,rgb=base64.b64encode(b.rgb()).decode(),
             total_spikes=self.total,counts=self.last_counts,latest=self.latest,error=self.error,
             elapsed=round(time.monotonic()-self.started,3),coordinates=bool(self.spatial),trace_every=self.trace_every,
             regions=[dict(name=n,neurons=g.n,edges=len(g.edges)) for n,g in zip(self.r.names,self.r.graphs)])
     def close(self):
         self.log.close()
+    def serial_input(self,data):
+        accepted=self.b.uart_input(data)
+        self.emit(dict(kind='serial_input',boundary=self.b.boundaries,bytes_hex=data.hex(),accepted=accepted))
+        return accepted
     def key(self,code,pressed):
         accepted=self.b.keyboard.push(code,pressed)
         self.emit(dict(kind='input',boundary=self.b.boundaries,code=code,pressed=pressed,accepted=accepted))
         return accepted
 
-def fresh(data,a):
-    b=board(data,a);b.__class__=SynapticBoard;b.install(PagedCrossbar(256));attach(b);visual_upgrade(b,a);upgrade(b,a)
-    assert b.steps==b.boundaries==0
-    return b
-
 HTML=r"""<!doctype html><meta charset=utf-8><title>SC500K live</title>
 <style>body{background:#121715;color:#d4e5da;font:15px monospace;margin:20px}button,select{font:inherit;margin:4px}main{display:grid;grid-template-columns:1fr 1fr;gap:14px}section{border:1px solid #48574c;padding:12px;min-width:0}canvas{width:100%;image-rendering:pixelated;background:#000}pre{height:300px;overflow:auto;white-space:pre-wrap}#info{white-space:pre-wrap}small{color:#a7b3ac}</style>
 <h2>SC500K / live evidence</h2><button onclick="act('run')">Run</button><button onclick="act('pause')">Pause</button><button onclick="act('step')">Step</button><select id=view><option>top</option><option>side</option><option>front</option></select><p id=info></p>
-<main><section><h3>Guest serial</h3><pre id=serial></pre><h3>Guest framebuffer</h3><canvas id=fb width=320 height=200></canvas><small>Keyboard events use the guest MMIO FIFO, not a host shell. Linux driver pending.</small></section>
+<main><section><h3>Guest serial</h3><pre id=serial></pre><form id=serialform><input id=serialtext placeholder="Guest serial input" maxlength=31 autocomplete=off><button type=submit>Send</button></form><small id=rxinfo></small><h3>Guest framebuffer</h3><canvas id=fb width=320 height=200></canvas><small>Keyboard events use the guest MMIO FIFO, not a host shell. Linux driver pending.</small></section>
 <section><h3>Measured neural activity</h3><p id=geometry></p><canvas id=brain width=640 height=400></canvas><pre id=counts></pre></section></main>
 <script>
 let running=false,busy=false,last=null;
 const el=id=>document.getElementById(id);
 async function request(path,data){let r=await fetch(path,data===undefined?{}:{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});if(!r.ok)throw Error(await r.text());return r.json()}
-function draw(s){last=s;running=s.running;el('info').textContent='boundary '+s.boundary+' | retired '+s.retired+' | PC '+s.pc+' | measured activations '+s.total_spikes+' | '+s.elapsed+' s | trace every '+s.trace_every+' boundary'+(s.error?' | '+s.error:'');el('serial').textContent=s.uart;el('serial').scrollTop=el('serial').scrollHeight;
+function draw(s){last=s;running=s.running;el('info').textContent='boundary '+s.boundary+' | retired '+s.retired+' | PC '+s.pc+' | measured activations '+s.total_spikes+' | '+s.elapsed+' s | trace every '+s.trace_every+' boundary'+(s.error?' | '+s.error:'');el('serial').textContent=s.uart;el('serial').scrollTop=el('serial').scrollHeight;el('rxinfo').textContent='UART RX free: '+s.rx_free+' bytes';
 let rgb=atob(s.rgb),c=el('fb').getContext('2d'),im=c.createImageData(320,200);for(let i=0;i<64000;i++){im.data[4*i]=rgb.charCodeAt(3*i);im.data[4*i+1]=rgb.charCodeAt(3*i+1);im.data[4*i+2]=rgb.charCodeAt(3*i+2);im.data[4*i+3]=255}c.putImageData(im,0,0);
 el('counts').textContent=JSON.stringify(s.counts,null,2);el('geometry').textContent=s.coordinates?'Graph-bound XYZ available; choose projection.':'GENESIS XYZ missing. Activity raster by stable rail ID, NOT brain anatomy.';el('view').disabled=!s.coordinates;if(!s.coordinates){let x=el('brain').getContext('2d');x.clearRect(0,0,640,400);let y=0;for(let g of s.regions){let e=s.latest[g.name];x.fillStyle='#b8c5bd';x.fillText(g.name,4,y+12);y+=18;if(e){for(let i=0;i<g.neurons/5;i++){let b=parseInt(e.rail_bits.slice(2*(i>>3),2*(i>>3)+2),16);if(b&(1<<(i%8))){x.fillStyle='#67df9a';x.fillRect((i%160)*4,y+Math.floor(i/160)*3,3,2)}}}y+=Math.ceil(g.neurons/5/160)*3+8}}}
 async function projection(){if(!last||!last.coordinates)return;let v=el('view').value,p=await request('/projection?view='+v);let c=el('brain').getContext('2d');c.clearRect(0,0,640,400);let pts=p.points;if(!pts.length)return;let lo=[Infinity,Infinity],hi=[-Infinity,-Infinity];for(let q of pts){for(let j=0;j<2;j++){lo[j]=Math.min(lo[j],q[j]);hi[j]=Math.max(hi[j],q[j])}}let scale=Math.min(620/Math.max(hi[0]-lo[0],1e-9),380/Math.max(hi[1]-lo[1],1e-9)),xy=q=>[10+(q[0]-lo[0])*scale,10+(q[1]-lo[1])*scale];c.strokeStyle='#36453c';c.beginPath();for(let [i,j] of p.edges){let a=xy(pts[i]),b=xy(pts[j]);c.moveTo(...a);c.lineTo(...b)}c.stroke();for(let i=0;i<pts.length;i++){c.fillStyle=p.active[i]?'#67df9a':'#708078';let a=xy(pts[i]);c.fillRect(...a,2,2)}el('geometry').textContent='Sampled structural edges; '+p.points.length+' neurons, '+p.edges.length+' edges. Activity = latest recorded evaluation per region.'}
 async function act(op){if(busy)return;busy=true;try{draw(await request('/action',{op}));await projection()}finally{busy=false}}
 el('view').onchange=projection;setInterval(()=>{if(running)act('tick')},100);request('/state').then(s=>{draw(s);projection()});
-addEventListener('keydown',e=>{if(e.repeat||e.target.tagName==='SELECT'||e.target.tagName==='BUTTON')return;let code=e.keyCode;if(code>0&&code<256)request('/key',{code,pressed:true})});addEventListener('keyup',e=>{let code=e.keyCode;if(code>0&&code<256)request('/key',{code,pressed:false})});
+el('serialform').onsubmit=async e=>{e.preventDefault();let data=el('serialtext').value+'\n';let r=await request('/serial',{text:data});if(r.accepted)el('serialtext').value='';else el('rxinfo').textContent='UART RX full; retry';};
+addEventListener('keydown',e=>{if(e.repeat||['SELECT','BUTTON','INPUT'].includes(e.target.tagName))return;let code=e.keyCode;if(code>0&&code<256)request('/key',{code,pressed:true})});addEventListener('keyup',e=>{if(['SELECT','BUTTON','INPUT'].includes(e.target.tagName))return;let code=e.keyCode;if(code>0&&code<256)request('/key',{code,pressed:false})});
 </script>"""
 def projection(s,view,limit=4000):
     if view not in AXES or s.spatial is None:raise ValueError('spatial coordinates unavailable')
@@ -142,6 +142,11 @@ def serve(s,port):
                 n=int(self.headers.get('Content-Length','0'))
                 if not 0<n<=1024:raise ValueError('body size')
                 x=json.loads(self.rfile.read(n))
+                if self.path=='/serial':
+                    if not isinstance(x['text'],str):raise ValueError('text')
+                    data=x['text'].encode('utf-8')
+                    if not 1<=len(data)<=32:raise ValueError('serial byte limit')
+                    self.reply(200,{'accepted':s.serial_input(data)});return
                 if self.path=='/key':self.reply(200,{'accepted':s.key(x['code'],x['pressed'])});return
                 if self.path!='/action':self.reply(404,{'error':'not found'});return
                 op=x['op']
@@ -166,6 +171,7 @@ def test(a):
             assert s.snapshot()['retired']==0 and not s.latest
             s.batch(5);assert b.steps==5 and b.serial==b'X'
             assert s.key(30,True);assert b.keyboard.pop()==0x11e
+            assert s.serial_input(b'hello\n');assert bytes(b.rx.pop() for _ in range(6))==b'hello\n'
             seq=s.seq;size=a.trace.stat().st_size;time.sleep(.02);assert s.seq==seq and a.trace.stat().st_size==size
             try:projection(s,'top')
             except ValueError:pass

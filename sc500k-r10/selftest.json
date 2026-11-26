@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "guest_instructions": 10,
+  "echo_hex": "41ff00",
+  "rx_capacity": 32,
+  "rx_cells": 10890,
+  "estimated_cells": 448450,
+  "dlab": true,
+  "wraparound": true,
+  "backpressure": true,
+  "ablation": true,
+  "checkpoint_exact": true,
+  "sbi_getchar": true,
+  "polled": true
+}

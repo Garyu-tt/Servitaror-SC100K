@@ -36,3 +36,4 @@ jobs:
       - run: python neural_framebuffer_r32.py --build-dir /tmp/sc500k-framebuffer
       - run: python neural_io_r33.py --build-dir /tmp/sc500k-io
       - run: python neural_trace_r34.py --build-dir /tmp/sc500k-trace
+      - run: python neural_demo_r35.py --build-dir /tmp/sc500k-demo --test

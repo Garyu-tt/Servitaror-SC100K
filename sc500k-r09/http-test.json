@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "loopback_http": true,
+  "cold_initial": true,
+  "step": 1,
+  "run": 64,
+  "pause": true,
+  "key_accepted": true,
+  "missing_coordinates_rejected": true,
+  "frame_bytes": 192000,
+  "recorded_boundaries": 65,
+  "sampled_boundaries": 17,
+  "measured_spikes": 2755550,
+  "browser_render_tested": false
+}

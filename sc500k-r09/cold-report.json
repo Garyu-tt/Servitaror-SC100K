@@ -1,0 +1,9 @@
+{
+  "retired": 64,
+  "delta": 64,
+  "measured_spikes": 2720650,
+  "boundaries": 64,
+  "coordinates_available": false,
+  "error": null,
+  "trace_sha256": "a7a8e9ae69d2667a7a3c835041aa6cbed66275a96f6c8770f55891e1557f96a7"
+}

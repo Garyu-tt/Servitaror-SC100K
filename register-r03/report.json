@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "registers": 32,
+  "register_bits": 1024,
+  "register_neurons": 41980,
+  "total_circuit_neurons": 75500,
+  "random_writes": 512,
+  "read_checks": 1568,
+  "errors": 0,
+  "ablation_rejected": true,
+  "x0_immutable": true,
+  "register_test_seconds": 0.838,
+  "guest_instructions": 64,
+  "guest_ips": 83.74,
+  "neural_reads": 128,
+  "neural_writes": 44,
+  "neural_decode_calls": 64,
+  "neural_alu_calls": 143,
+  "linux_booted": false,
+  "limitations": "Clocked recurrent spike-state bank, vectorized fixed Q4 bundle equations; host retains spike arrays and schedules phases, extracts fields, dispatches control and implements RAM. No autonomous recurrent GENESIS integration, ISA conformance or Linux yet."
+}

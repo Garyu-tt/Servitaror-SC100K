@@ -1,0 +1,29 @@
+{
+  "status": "PASS",
+  "base_checkpoint_sha256": null,
+  "brain_capacity": 131072,
+  "active_circuit_neurons": 28650,
+  "synapses": 279000,
+  "stages": 71,
+  "operations": [
+    "ADD",
+    "SUB",
+    "AND",
+    "OR",
+    "XOR",
+    "SLL",
+    "SRL",
+    "SRA",
+    "SLT",
+    "SLTU"
+  ],
+  "test_vectors": 1640,
+  "errors": 0,
+  "ablation_rejected": true,
+  "build_seconds": 4.69,
+  "test_seconds": 7.599,
+  "operations_per_second": 215.81,
+  "spikes": 23493000,
+  "cortex_sha256": "4a08a595f3225e86eead69cf117388200a276545b6b0133a7f67ce93206317dc",
+  "limitations": "Engineered feedforward Q4 cortical overlay; background not stepped; no learning, ISA decoder, registers, MMU or kernel yet."
+}

@@ -1,0 +1,24 @@
+{
+  "status": "PASS",
+  "instructions": 64,
+  "alu_calls": 143,
+  "seconds": 0.692,
+  "instructions_per_second": 92.47,
+  "sum_register": 136,
+  "memory_word": 136,
+  "subroutine_result": 137,
+  "signed_byte": "0xffffffff",
+  "host_services": [
+    "decode",
+    "register storage",
+    "memory",
+    "control"
+  ],
+  "neural_services": [
+    "ALU",
+    "PC arithmetic",
+    "effective addresses",
+    "branch comparison"
+  ],
+  "linux_booted": false
+}

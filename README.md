@@ -1,5 +1,17 @@
 # ServitoriumCogitatorium
 
-Experimental CPU-first spiking-neuron processor based on GENESIS R02 Q4 dynamics. Goal: boot Linux on a neural instruction execution substrate, without a conventional hidden ALU.
+CPU-first experimental spiking processor derived from GENESIS R02 Q4 dynamics. Goal: boot Linux without a conventional hidden ALU.
 
-R01: engineered dual-rail spiking RV32I ALU and bare-metal instruction front end. Linux has not booted. Host still handles instruction decoding, registers, RAM and device control. The circuit is engineered, not learned. The original resident brain and its private data are not included.
+## Reproduce R01
+
+```sh
+python -m venv .venv
+. .venv/bin/activate
+pip install -r requirements.txt
+python neural_alu_r01.py
+python neural_rv32i_r01.py
+```
+
+Standalone tests need no private GENESIS checkpoint. The host prototype had a 131,072-neuron capacity; the engineered overlay activates 28,650 neurons and 279,000 synapses. It passed 1,640 arithmetic vectors and a 64-instruction bare-metal RV32I program. See recorded JSON reports. Host still performs decode, registers, RAM and device control. No Linux boot yet. This is a fixed feedforward spiking circuit, not a learned CPU, and the original resident brain is not included.
+
+See [roadmap](docs/ROADMAP.md).

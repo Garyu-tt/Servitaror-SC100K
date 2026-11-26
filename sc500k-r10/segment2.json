@@ -1,0 +1,27 @@
+{
+  "retired": 928425,
+  "delta": 20000,
+  "pc": "0xc0253124",
+  "mode": 1,
+  "stop": "budget",
+  "fault": null,
+  "seconds": 13.379,
+  "alu_calls": 4045258,
+  "serial": "[    0.000000] Linux version 5.15.43 (bane9@bane9-1-2) (riscv32-buildroot-linux-gnu-gcc.br_real (Buildroot 2023.02.2) 11.4.0, GNU ld (GNU Binutils) 2.38) #11 Mon Aug 26 00:34:46 CEST 2024\r\n[    0.000000] OF: fdt: Ignoring memory range 0x80000000 - 0x80400000\r\n[    0.000000] Machine model: SC100K R11\r\n[    0.000000] earlycon: uart8250 at MMIO 0x10000000 (options '')\r\n[    0.000000] printk: bootconsole [uart8250] enabled\r\n[    0.000000] Zone ranges:\r\n[    0.000000]   Normal   [mem 0x0000000080400000-0x0000000083ffffff]\r\n[    0.000000] Movable zone start for each node\r\n[    0.000000] Early memory node ranges\r\n[    0.000000]   node   0: [mem 0x0000000080400000-0x0000000083ffffff]\r\n[    0.000000] Initmem setup node 0 [mem 0x0000000080400000-0x0000000083ffffff]\r\n",
+  "x13": "0xc3b9da20",
+  "x14": "0xffffffe4",
+  "linux_booted": false,
+  "oracle_checks": 95013,
+  "ram_read_delta": 21281,
+  "ram_write_delta": 4122,
+  "rx_received": 0,
+  "rx_reads": 0,
+  "cache": {
+    "hits": 25383,
+    "misses": 10,
+    "flushes": 0,
+    "hit_rate": 0.9996061906824716
+  },
+  "no_guest_bytearray": true,
+  "checkpoint_sha256": "ad98cc1d64db6d67570318d471f54831d3584e56eedab85ac27f70e0697068f7"
+}

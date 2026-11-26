@@ -12,3 +12,4 @@ jobs:
       - run: python neural_alu_r01.py
       - run: python neural_rv32i_r01.py
       - run: python neural_decoder_r02.py
+      - run: python neural_register_r03.py

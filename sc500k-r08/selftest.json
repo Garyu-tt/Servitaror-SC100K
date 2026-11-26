@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "alu_differentials": 120,
+  "ablation": true,
+  "pause_no_events": true,
+  "measured_regions": [
+    "alu",
+    "decoder",
+    "control"
+  ],
+  "coordinates_available": false
+}

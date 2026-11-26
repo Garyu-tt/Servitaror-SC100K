@@ -35,3 +35,4 @@ jobs:
       - run: python neural_native_memory_r31.py --build-dir /tmp/sc500k-native-memory
       - run: python neural_framebuffer_r32.py --build-dir /tmp/sc500k-framebuffer
       - run: python neural_io_r33.py --build-dir /tmp/sc500k-io
+      - run: python neural_trace_r34.py --build-dir /tmp/sc500k-trace

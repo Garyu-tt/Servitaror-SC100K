@@ -33,3 +33,4 @@ jobs:
       - run: python neural_paged_r29.py --build-dir /tmp/sc500k-paged
       - run: python neural_devices_r30.py --build-dir /tmp/sc500k-devices
       - run: python neural_native_memory_r31.py --build-dir /tmp/sc500k-native-memory
+      - run: python neural_framebuffer_r32.py --build-dir /tmp/sc500k-framebuffer

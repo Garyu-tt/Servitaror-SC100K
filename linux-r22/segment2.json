@@ -1,0 +1,118 @@
+{
+  "retired": 357401,
+  "delta": 10000,
+  "pc": "0xc025eabc",
+  "mode": 1,
+  "stop": "budget",
+  "fault": null,
+  "seconds": 16.395,
+  "alu_calls": 1329680,
+  "serial": "[    0.000000] Linux version 5.15.43 (bane9@bane9-1-2) (riscv32-buildroot-linux-gnu-gcc.br_real (Buildroot 2023.02.2) 11.4.0, GNU ld (GNU Binutils) 2.38) #11 Mon Aug 26 00:34:46 CEST 2024\r\n[    0.000000] OF: fdt: Ignoring memory range 0x80000000 - 0x80400000\r\n[    0.000000] Machine model: SC100K R11\r\n[    0.000000] earlycon: uart8250 at MMIO 0x10000000 (options '')\r\n[    0.000000] printk: bootconsole [uart8250] enabled\r\n",
+  "x13": "0xc05d6018",
+  "x14": "0x3c00",
+  "linux_booted": false,
+  "revision": "R19-corrected",
+  "image_sha256": "9feee94f9fbb3f9a761485fb982c78977594d9c0db8b0b411b5677dfb5efc325",
+  "checkpoint_sha256": "b27eae11d4980220c5128cd8a25799019459ba294c4d05b037c04bdc5a45b653",
+  "oracle_checks": 49015,
+  "oracle_counts": {
+    "AND": 14513,
+    "SLL": 527,
+    "SRL": 187,
+    "ADD": 18766,
+    "OR": 13469,
+    "XOR": 983,
+    "SUB": 71,
+    "SLTU": 412,
+    "MULHU": 7,
+    "MUL": 17,
+    "SLT": 42,
+    "SRA": 20,
+    "DIVU": 1
+  },
+  "sltiu_examples": [
+    {
+      "step": 347686,
+      "pc": "0xc0252df4",
+      "operand": "0x8",
+      "imm": "0x80",
+      "expected": 1
+    },
+    {
+      "step": 348741,
+      "pc": "0xc02530d4",
+      "operand": "0x58",
+      "imm": "0x10",
+      "expected": 0
+    },
+    {
+      "step": 349114,
+      "pc": "0xc0252df4",
+      "operand": "0xa",
+      "imm": "0x80",
+      "expected": 1
+    },
+    {
+      "step": 349468,
+      "pc": "0xc0252df4",
+      "operand": "0x9",
+      "imm": "0x80",
+      "expected": 1
+    },
+    {
+      "step": 350123,
+      "pc": "0xc0252df4",
+      "operand": "0xa",
+      "imm": "0x80",
+      "expected": 1
+    },
+    {
+      "step": 350714,
+      "pc": "0xc0252df4",
+      "operand": "0x58",
+      "imm": "0x80",
+      "expected": 1
+    },
+    {
+      "step": 350904,
+      "pc": "0xc0252df4",
+      "operand": "0x26",
+      "imm": "0x80",
+      "expected": 1
+    },
+    {
+      "step": 351420,
+      "pc": "0xc0252df4",
+      "operand": "0x1",
+      "imm": "0x80",
+      "expected": 1
+    },
+    {
+      "step": 351774,
+      "pc": "0xc0252df4",
+      "operand": "0x1",
+      "imm": "0x80",
+      "expected": 1
+    },
+    {
+      "step": 352140,
+      "pc": "0xc0252df4",
+      "operand": "0x1",
+      "imm": "0x80",
+      "expected": 1
+    },
+    {
+      "step": 352535,
+      "pc": "0xc0252df4",
+      "operand": "0xf",
+      "imm": "0x80",
+      "expected": 1
+    }
+  ],
+  "cache": {
+    "hits": 13297,
+    "misses": 62,
+    "flushes": 0,
+    "hit_rate": 0.99535893405195
+  }
+}

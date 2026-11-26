@@ -19,3 +19,4 @@ jobs:
       - run: python neural_csr_r07.py
       - run: python neural_priv_r08.py
       - run: python neural_irq_r09.py
+      - run: python neural_mmu_r10.py

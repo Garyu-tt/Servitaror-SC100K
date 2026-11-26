@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "scenarios": 15,
+  "interrupt_causes": [
+    11,
+    3,
+    7,
+    9,
+    1,
+    5
+  ],
+  "guest_timer_roundtrip": true,
+  "guest_supervisor_roundtrip": true,
+  "guest_retired": 4,
+  "timer_boundaries": 5,
+  "csr_budget_cells": 8960,
+  "total_budget_cells": 122590,
+  "seconds": 2.967,
+  "linux_booted": false,
+  "limitations": "Deterministic host timer increments per step boundary, not wall time. CLINT-like word MMIO, host IRQ priority/delegation, no PLIC, SBI, real WFI sleep, MMU, PMP, Sstc or full conformance. Supervisor timer/external lines are test injection only."
+}

@@ -1,0 +1,27 @@
+{
+  "retired": 394401,
+  "delta": 30000,
+  "pc": "0xc0199728",
+  "mode": 1,
+  "stop": "budget",
+  "fault": null,
+  "seconds": 9.478,
+  "alu_calls": 1586014,
+  "serial": "[    0.000000] Linux version 5.15.43 (bane9@bane9-1-2) (riscv32-buildroot-linux-gnu-gcc.br_real (Buildroot 2023.02.2) 11.4.0, GNU ld (GNU Binutils) 2.38) #11 Mon Aug 26 00:34:46 CEST 2024\r\n[    0.000000] OF: fdt: Ignoring memory range 0x80000000 - 0x80400000\r\n[    0.000000] Machine model: SC100K R11\r\n[    0.000000] earlycon: uart8250 at MMIO 0x10000000 (options '')\r\n[    0.000000] printk: bootconsole [uart8250] enabled\r\n",
+  "x13": "0xc04fb200",
+  "x14": "0xc04fb2b4",
+  "linux_booted": false,
+  "oracle_checks": 151845,
+  "ram_read_delta": 37522,
+  "ram_write_delta": 1197,
+  "rx_received": 0,
+  "rx_reads": 0,
+  "cache": {
+    "hits": 38611,
+    "misses": 54,
+    "flushes": 3,
+    "hit_rate": 0.9986033880770723
+  },
+  "no_guest_bytearray": true,
+  "checkpoint_sha256": "a837976d8e50a1cbb9e1d5d08a86197c0fbfa50d2bd885e5697c5193e9e47504"
+}

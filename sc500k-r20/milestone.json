@@ -1,0 +1,331 @@
+{
+  "status": "PASS",
+  "retired": 1664401,
+  "delta": 1300000,
+  "oracle_checks": 6298622,
+  "seconds": 451.3849999999998,
+  "counters": {
+    "ad_updates": 0,
+    "alu_calls": 7732264,
+    "atomic_calls": 201,
+    "atomic_selects": 0,
+    "boundaries": 1664402,
+    "csr_calls": 527,
+    "decode_calls": 1664401,
+    "fences": 6,
+    "interrupts": 0,
+    "pte_reads": 1419,
+    "returns": 0,
+    "sbi_calls": 6,
+    "steps": 1664401,
+    "traps": 1,
+    "waits": 0,
+    "walks": 1403
+  },
+  "segments": [
+    {
+      "revision": 17,
+      "file": "segment1.json",
+      "retired": 394401,
+      "oracle_checks": 151845,
+      "sha256": "a837976d8e50a1cbb9e1d5d08a86197c0fbfa50d2bd885e5697c5193e9e47504"
+    },
+    {
+      "revision": 17,
+      "file": "segment2.json",
+      "retired": 424401,
+      "oracle_checks": 151908,
+      "sha256": "6f4ba2cb3023655f3fac592d6e29c95ca64b2c2f23b94401d60f99541c9eb9f0"
+    },
+    {
+      "revision": 17,
+      "file": "segment3.json",
+      "retired": 464401,
+      "oracle_checks": 204797,
+      "sha256": "a1b6cded30ba989da483d886a569b014b5c33c59db8c7555ad5c0b43dde016d7"
+    },
+    {
+      "revision": 17,
+      "file": "segment4.json",
+      "retired": 504401,
+      "oracle_checks": 206035,
+      "sha256": "5fcdcd0d261fe3b5acce99fe82020d91a23912a82195bcf7c85babc579541c8f"
+    },
+    {
+      "revision": 17,
+      "file": "segment5.json",
+      "retired": 544401,
+      "oracle_checks": 204514,
+      "sha256": "9c244451f6c41e654e52aba70e364a30e98c5ed7c77518a886bb9297cfc6840b"
+    },
+    {
+      "revision": 17,
+      "file": "segment6.json",
+      "retired": 574401,
+      "oracle_checks": 154424,
+      "sha256": "7733baca5782595a76e1f8e492c0586006df12ecdb3faf0cc9190d69096983a6"
+    },
+    {
+      "revision": 17,
+      "file": "segment7.json",
+      "retired": 604401,
+      "oracle_checks": 153361,
+      "sha256": "7673db51a6a5d75f7bd3b7dfcd685920f339f6dd330d4f45fc100ca3abab3e98"
+    },
+    {
+      "revision": 17,
+      "file": "segment8.json",
+      "retired": 634401,
+      "oracle_checks": 147974,
+      "sha256": "8539cdba68b0aba7bcb67fc855d5742f263410314c7d7d30901c5ca2dcd9cf79"
+    },
+    {
+      "revision": 18,
+      "file": "segment1.json",
+      "retired": 664401,
+      "oracle_checks": 142497,
+      "sha256": "933a09e639eb59d60669c64a7a4544eba879b923e9d5f219ca816f4a37ddc6de"
+    },
+    {
+      "revision": 18,
+      "file": "segment2.json",
+      "retired": 694401,
+      "oracle_checks": 142562,
+      "sha256": "a7ae7b15c71d77c9fb47f7f6484944215ecfd1d27a3d0a0d743f7439bc4f2cea"
+    },
+    {
+      "revision": 18,
+      "file": "segment3.json",
+      "retired": 724401,
+      "oracle_checks": 142495,
+      "sha256": "3e92d2e67f1f46c5ccbd9a19eba455d76349e3821569e3ddb8c27e0ee9228771"
+    },
+    {
+      "revision": 18,
+      "file": "segment4.json",
+      "retired": 754401,
+      "oracle_checks": 142552,
+      "sha256": "60fe8d5a51ebff63475df61394ab838f1e340dffc6223bc18e398eea8d005345"
+    },
+    {
+      "revision": 18,
+      "file": "segment5.json",
+      "retired": 784401,
+      "oracle_checks": 142490,
+      "sha256": "a76a95b153e201ed723a38b3e06136c06ca09a2cb565463ecfa842636e85fbcb"
+    },
+    {
+      "revision": 18,
+      "file": "segment6.json",
+      "retired": 814401,
+      "oracle_checks": 142505,
+      "sha256": "ca98e035c8430d251987d3f52364cb3eb0b67c95aa055a0ac3a179eca131b29d"
+    },
+    {
+      "revision": 18,
+      "file": "segment7.json",
+      "retired": 844401,
+      "oracle_checks": 142563,
+      "sha256": "6ae6ffde6221dedbfebdbd19098434413d1feaa870f47e15249c40f167c551c3"
+    },
+    {
+      "revision": 18,
+      "file": "segment8.json",
+      "retired": 874401,
+      "oracle_checks": 142492,
+      "sha256": "e8acf1cbc5602b1b7f927abb0ea3791987dd1bb63de9c19a5d5c0ca3fa8e3c88"
+    },
+    {
+      "revision": 18,
+      "file": "segment9.json",
+      "retired": 904401,
+      "oracle_checks": 142555,
+      "sha256": "abb506968f5834f082458ea9165a3837fbe498f462bf43c535dda6ee59da8817"
+    },
+    {
+      "revision": 18,
+      "file": "segment10.json",
+      "retired": 934401,
+      "oracle_checks": 142493,
+      "sha256": "9d64414d7bc81ac4c12482148505ee51714b8334b0b486a797b6f1be719c753c"
+    },
+    {
+      "revision": 18,
+      "file": "segment11.json",
+      "retired": 964401,
+      "oracle_checks": 142564,
+      "sha256": "e306d6dd5d8c35a543af96a26a9303cde6a8072fb9d31d41e10cd72334f26089"
+    },
+    {
+      "revision": 18,
+      "file": "segment12.json",
+      "retired": 1004401,
+      "oracle_checks": 189965,
+      "sha256": "2299261d8f2259d5c82e2d24f8af0019cbd71f71c74028c22ff7409a95ff7974"
+    },
+    {
+      "revision": 18,
+      "file": "segment13.json",
+      "retired": 1034401,
+      "oracle_checks": 142555,
+      "sha256": "01096d2256a7645ffcabedf54f9b66d7390edf16b1922e30ef507735eacc0ffa"
+    },
+    {
+      "revision": 19,
+      "file": "segment1.json",
+      "retired": 1064401,
+      "oracle_checks": 142507,
+      "sha256": "de5c4639d81f13db5a70320cd31f99d8d3aeb7d75ef0c23e25f460f7382c783d"
+    },
+    {
+      "revision": 19,
+      "file": "segment2.json",
+      "retired": 1094401,
+      "oracle_checks": 142561,
+      "sha256": "1d16fbd36a3d96f166d9bd7f6df226bf4aef6765964efb5957c0834628dc0a7f"
+    },
+    {
+      "revision": 19,
+      "file": "segment3.json",
+      "retired": 1124401,
+      "oracle_checks": 142485,
+      "sha256": "bc000cdf21854f7058da5ad7fe9b2506a2ff09f7d7156b7dca3f846bfc1ea324"
+    },
+    {
+      "revision": 19,
+      "file": "segment4.json",
+      "retired": 1154401,
+      "oracle_checks": 142552,
+      "sha256": "d7f90bbb43c7e4df69cc42c243c55dbd722452a9238565ec736167eabf2f31de"
+    },
+    {
+      "revision": 19,
+      "file": "segment5.json",
+      "retired": 1194401,
+      "oracle_checks": 189975,
+      "sha256": "cc51ef20509a2fb57df42712a6827fafdb0a2e853ede51dbb8b3745a01e4e591"
+    },
+    {
+      "revision": 19,
+      "file": "segment6.json",
+      "retired": 1234401,
+      "oracle_checks": 190032,
+      "sha256": "c7444ad902c183f1eb2f5b628d0ae7a7e8a3fbb9b1821d24b6c7ff3ed4fa1ecd"
+    },
+    {
+      "revision": 19,
+      "file": "segment7.json",
+      "retired": 1264401,
+      "oracle_checks": 142494,
+      "sha256": "3e5f428199aa910a0f6073534aa03450e2bd4b8495108f846e4d5a1c2a63ca09"
+    },
+    {
+      "revision": 19,
+      "file": "segment8.json",
+      "retired": 1294401,
+      "oracle_checks": 142547,
+      "sha256": "0448922ba4e1444d9d76760024ee97f3d6a20534d6eadf58c4e31bfedd934654"
+    },
+    {
+      "revision": 20,
+      "file": "segment1.json",
+      "retired": 1334401,
+      "oracle_checks": 189970,
+      "sha256": "113afe21a82ef2b31a347fe71482b74c029f4766b9c8e100afebd885a1efb56b"
+    },
+    {
+      "revision": 20,
+      "file": "segment2.json",
+      "retired": 1374401,
+      "oracle_checks": 190033,
+      "sha256": "1a61e8acce2e8d36b9be0507036ad5fe7a60464d235e7ad581497691213e58a7"
+    },
+    {
+      "revision": 20,
+      "file": "segment3.json",
+      "retired": 1414401,
+      "oracle_checks": 190033,
+      "sha256": "50c21e11aecf505176c1c6051f6dce7d2280c840c7fe4003d126beb9abd8dcc4"
+    },
+    {
+      "revision": 20,
+      "file": "segment4.json",
+      "retired": 1454401,
+      "oracle_checks": 189974,
+      "sha256": "6dfa0b4e43244285bf5765e978513148ba3079db57381ecc1aa47440df705a4b"
+    },
+    {
+      "revision": 20,
+      "file": "segment5.json",
+      "retired": 1494401,
+      "oracle_checks": 190032,
+      "sha256": "8129c59543f81ca0128f93ffbbd45c7663d21c06a4cec9f8364f2a53484a68db"
+    },
+    {
+      "revision": 20,
+      "file": "segment6.json",
+      "retired": 1534401,
+      "oracle_checks": 190026,
+      "sha256": "88e7a58f828dca2eb9430a2b699529e1b68334b2166321464baa5a7be3b28556"
+    },
+    {
+      "revision": 20,
+      "file": "segment7.json",
+      "retired": 1574401,
+      "oracle_checks": 189972,
+      "sha256": "8ce6dfa3ec8f2e468aeba97f2e683e7954855fd95b30e951e18d1d3dcdf8669c"
+    },
+    {
+      "revision": 20,
+      "file": "segment8.json",
+      "retired": 1604401,
+      "oracle_checks": 144046,
+      "sha256": "c9885805acfed5c1dacc29aa323dd045e954ee3b3a21e74bdfc461a1647df3f3"
+    },
+    {
+      "revision": 20,
+      "file": "segment9.json",
+      "retired": 1624401,
+      "oracle_checks": 101875,
+      "sha256": "904e809f2a41231980c5532b65d0781db998dbcad40cbcc8676553edd29436f1"
+    },
+    {
+      "revision": 20,
+      "file": "segment10.json",
+      "retired": 1644401,
+      "oracle_checks": 102672,
+      "sha256": "3b254e3215052191ab8832b8f04f6e8f78c7927f21f3c904ce55e4e182a5b690"
+    },
+    {
+      "revision": 20,
+      "file": "segment12.json",
+      "retired": 1654401,
+      "oracle_checks": 57700,
+      "sha256": "ce39a221e90b7109621e26431976d42e08d468c5cef300a8bba96c943e205a03"
+    },
+    {
+      "revision": 20,
+      "file": "segment13.json",
+      "retired": 1664401,
+      "oracle_checks": 51990,
+      "sha256": "1dfcb58db9ba156ef59fade09aa1d55e6429c2a444497fcf91d6f5f5768afc2f"
+    }
+  ],
+  "checkpoint_sha256": "1dfcb58db9ba156ef59fade09aa1d55e6429c2a444497fcf91d6f5f5768afc2f",
+  "actual_isa": "aim",
+  "actual_elf": "aim",
+  "old_warning_present": true,
+  "new_warning_absent": true,
+  "excluded_alternate_r19": [
+    "segment9.json",
+    "segment10.json",
+    "segment11.json",
+    "segment12.json",
+    "segment13.json",
+    "segment14.json",
+    "segment15.json",
+    "segment16.json",
+    "segment17.json",
+    "segment18.json"
+  ]
+}

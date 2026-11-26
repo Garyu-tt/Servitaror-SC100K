@@ -1,0 +1,43 @@
+{
+  "status": "PASS",
+  "profile": "specific Linux 5.15.43 image and observed memory initialization loop, x9 current PFN, x20 upper bound",
+  "rows": [
+    {
+      "retired": 948425,
+      "pc": "0xc0275738",
+      "pfn_current": 530444,
+      "pfn_limit": 540672,
+      "pfn_remaining": 10228,
+      "traps": 1,
+      "checkpoint_sha256": "f335c1f0099921985db4f7f2c9cfe49984a6c0a76cd6feabfa633b5ce4b2d27e"
+    },
+    {
+      "retired": 968425,
+      "pc": "0xc0253108",
+      "pfn_current": 530762,
+      "pfn_limit": 540672,
+      "pfn_remaining": 9910,
+      "traps": 1,
+      "checkpoint_sha256": "49d57f515e5481fe269fc1514916e490943d2c306f2037247f9c2b30c7bd001a"
+    },
+    {
+      "retired": 988425,
+      "pc": "0xc027571c",
+      "pfn_current": 531079,
+      "pfn_limit": 540672,
+      "pfn_remaining": 9593,
+      "traps": 1,
+      "checkpoint_sha256": "204e49caf26b8f27d7cba5cbf2f27ee4b67e9238a7ff3d59b7130f82a1962b3e"
+    },
+    {
+      "retired": 1008425,
+      "pc": "0xc02530e0",
+      "pfn_current": 531397,
+      "pfn_limit": 540672,
+      "pfn_remaining": 9275,
+      "traps": 1,
+      "checkpoint_sha256": "9f1afa0605f0c4d85b084478d1e7adfaa8e8f0049c4de637ab490956dcfadf8a"
+    }
+  ],
+  "progress_pages": 953
+}

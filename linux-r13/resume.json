@@ -1,0 +1,21 @@
+{
+  "retired": 2560,
+  "delta": 2048,
+  "pc": "0x80400108",
+  "mode": 1,
+  "stop": "budget",
+  "fault": null,
+  "seconds": 11.331,
+  "alu_calls": 6002,
+  "serial": "",
+  "x13": "0x809d6d40",
+  "x14": "0x80a08278",
+  "linux_booted": false,
+  "image_sha256": "9feee94f9fbb3f9a761485fb982c78977594d9c0db8b0b411b5677dfb5efc325",
+  "quotient_groups": [
+    5730,
+    2008,
+    492
+  ],
+  "checkpoint_bytes": 4121853
+}

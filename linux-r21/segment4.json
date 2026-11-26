@@ -1,0 +1,34 @@
+{
+  "retired": 327401,
+  "delta": 10000,
+  "pc": "0xc01fdad8",
+  "mode": 1,
+  "stop": "budget",
+  "fault": null,
+  "seconds": 15.848,
+  "alu_calls": 1184302,
+  "serial": "[    0.000000] Linux version 5.15.43 (bane9@bane9-1-2) (riscv32-buildroot-linux-gnu-gcc.br_real (Buildroot 2023.02.2) 11.4.0, GNU ld (GNU Binutils) 2.38) #11 Mon A",
+  "x13": "0xc0507740",
+  "x14": "0x5",
+  "linux_booted": false,
+  "revision": "R19-corrected",
+  "image_sha256": "9feee94f9fbb3f9a761485fb982c78977594d9c0db8b0b411b5677dfb5efc325",
+  "checkpoint_sha256": "39d6fe9a9d40b49ceae21b28f020386d88c6498c65b0e0c504a1fd9cc3133526",
+  "oracle_checks": 47365,
+  "oracle_counts": {
+    "AND": 14394,
+    "SLL": 675,
+    "SRL": 22,
+    "ADD": 18401,
+    "OR": 13066,
+    "XOR": 485,
+    "SLTU": 322
+  },
+  "sltiu_examples": [],
+  "cache": {
+    "hits": 13057,
+    "misses": 9,
+    "flushes": 0,
+    "hit_rate": 0.9993111893463952
+  }
+}

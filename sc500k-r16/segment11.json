@@ -1,0 +1,27 @@
+{
+  "retired": 324401,
+  "delta": 20000,
+  "pc": "0xc01fda24",
+  "mode": 1,
+  "stop": "budget",
+  "fault": null,
+  "seconds": 10.749,
+  "alu_calls": 1230682,
+  "serial": "[    0.000000] Linux version 5.15.43 (bane9@bane9-1-2) (riscv32-buildroot-linux-gnu-gcc.br_real (Buildroot 2023.02.2",
+  "x13": "0xc0507760",
+  "x14": "0x0",
+  "linux_booted": false,
+  "oracle_checks": 101783,
+  "ram_read_delta": 24348,
+  "ram_write_delta": 2176,
+  "rx_received": 0,
+  "rx_reads": 0,
+  "cache": {
+    "hits": 26212,
+    "misses": 73,
+    "flushes": 1,
+    "hit_rate": 0.9972227506182233
+  },
+  "no_guest_bytearray": true,
+  "checkpoint_sha256": "7f1827e8e3e8ef54e1d886aa07bc5d7da806a036f90079c56ce4f409f340eb74"
+}

@@ -1,0 +1,117 @@
+{
+  "status": "PASS",
+  "retired": 364401,
+  "delta": 352401,
+  "oracle_checks": 1406342,
+  "seconds": 114.25900000000001,
+  "counters": {
+    "ad_updates": 0,
+    "alu_calls": 1434169,
+    "atomic_calls": 59,
+    "atomic_selects": 0,
+    "boundaries": 364402,
+    "csr_calls": 178,
+    "decode_calls": 364401,
+    "fences": 3,
+    "interrupts": 0,
+    "pte_reads": 410,
+    "returns": 0,
+    "sbi_calls": 0,
+    "steps": 364401,
+    "traps": 1,
+    "waits": 0,
+    "walks": 404
+  },
+  "advertised_isa": "rv32ima",
+  "segments": [
+    {
+      "file": "segment1.json",
+      "retired": 52000,
+      "stop": "budget",
+      "fault": null,
+      "sha256": "bd663d9fb7a36d13acdcb226f2c050f558df2079be490e008ec627f41309568d"
+    },
+    {
+      "file": "segment2.json",
+      "retired": 92000,
+      "stop": "budget",
+      "fault": null,
+      "sha256": "ffed5ee675688a38e803f6d2085a87ba6fa04147c125acd20e813061870ed086"
+    },
+    {
+      "file": "segment3.json",
+      "retired": 132000,
+      "stop": "budget",
+      "fault": null,
+      "sha256": "0b2ff92acc2db9bf41f82ccefe9528599d2aabfc8ee441d468d1b3a992abec19"
+    },
+    {
+      "file": "segment4.json",
+      "retired": 154401,
+      "stop": "guest_trap",
+      "fault": {
+        "cause": "0xc",
+        "tval": "0x80400090",
+        "epc": "0x80400090"
+      },
+      "sha256": "616578846bb162b94fd18418ad774d4b9155723bdebe708f3ca60d3645b4702a"
+    },
+    {
+      "file": "segment5.json",
+      "retired": 184401,
+      "stop": "budget",
+      "fault": null,
+      "sha256": "3047b673634fbc26cede390c203a5fcda356ce9c0299e6a5fab3c9a88ad6a2d5"
+    },
+    {
+      "file": "segment6.json",
+      "retired": 214401,
+      "stop": "budget",
+      "fault": null,
+      "sha256": "21d223a1ac3f6620f386e0859b1292792ff51863cb35ef07c4e7a45a5ad67f0d"
+    },
+    {
+      "file": "segment7.json",
+      "retired": 244401,
+      "stop": "budget",
+      "fault": null,
+      "sha256": "b258d1403f6b2af86d7d0c9849fc04cca29612f737433c8f6b0ae3cb8a555f04"
+    },
+    {
+      "file": "segment8.json",
+      "retired": 274401,
+      "stop": "budget",
+      "fault": null,
+      "sha256": "521d80a7acb8dc372732ff68c84fbdbe9aeac7e902e01878c8344f3f0d90d586"
+    },
+    {
+      "file": "segment9.json",
+      "retired": 304401,
+      "stop": "budget",
+      "fault": null,
+      "sha256": "18236577a06217d4eec9a39a545f9dce528e26f5f0858d94fcc658e2c5210e82"
+    },
+    {
+      "file": "segment11.json",
+      "retired": 324401,
+      "stop": "budget",
+      "fault": null,
+      "sha256": "7f1827e8e3e8ef54e1d886aa07bc5d7da806a036f90079c56ce4f409f340eb74"
+    },
+    {
+      "file": "segment12.json",
+      "retired": 344401,
+      "stop": "budget",
+      "fault": null,
+      "sha256": "61c5f4d95dc08f8a33908e83c820e2bbf1c24134a291d9f2c13eda63a63a58b9"
+    },
+    {
+      "file": "segment13.json",
+      "retired": 364401,
+      "stop": "budget",
+      "fault": null,
+      "sha256": "6848c53933fe405142e15f43bf409f518eda618f1eacdec284a3da2e78b130a3"
+    }
+  ],
+  "checkpoint_sha256": "6848c53933fe405142e15f43bf409f518eda618f1eacdec284a3da2e78b130a3"
+}

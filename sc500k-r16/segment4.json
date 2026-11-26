@@ -1,0 +1,31 @@
+{
+  "retired": 154401,
+  "delta": 22401,
+  "pc": "0xc0000090",
+  "mode": 1,
+  "stop": "guest_trap",
+  "fault": {
+    "cause": "0xc",
+    "tval": "0x80400090",
+    "epc": "0x80400090"
+  },
+  "seconds": 4.999,
+  "alu_calls": 360233,
+  "serial": "",
+  "x13": "0x400000",
+  "x14": "0x3f0000",
+  "linux_booted": false,
+  "oracle_checks": 52205,
+  "ram_read_delta": 22464,
+  "ram_write_delta": 7427,
+  "rx_received": 0,
+  "rx_reads": 0,
+  "cache": {
+    "hits": 0,
+    "misses": 1,
+    "flushes": 1,
+    "hit_rate": 0.0
+  },
+  "no_guest_bytearray": true,
+  "checkpoint_sha256": "616578846bb162b94fd18418ad774d4b9155723bdebe708f3ca60d3645b4702a"
+}

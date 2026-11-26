@@ -6,7 +6,7 @@ only the spiking ALU. Not a Linux-capable core yet.
 """
 import json,time,struct
 from pathlib import Path
-from neural_alu_r01 import Circuit,MASK,ROOT
+from neural_alu_r01 import Circuit,MASK,ROOT,OPS
 def sext(v,bits):
     return v-(1<<bits) if v&(1<<(bits-1)) else v
 class CPU:
@@ -15,6 +15,7 @@ class CPU:
         self.ram=bytearray(65536);self.ram[:len(image)]=image
         self.steps=0;self.alu_calls=0;self.halted=False
     def alu(self,op,a,b):
+        if op not in OPS:raise ValueError(f"unknown ALU operation: {op}")
         self.alu_calls+=1
         return self.c.run(op,a&MASK,b&MASK)[0]
     def rd(self,i,v):

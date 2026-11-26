@@ -64,7 +64,7 @@ class NeuralCPU(CPU):
         pc=self.pc;nxt=self.alu('ADD',pc,4)
         if name in ('ADD','SUB','SLL','SLT','SLTU','XOR','SRL','SRA','OR','AND'):self.rd(rd,self.alu(name,a,b))
         elif name in ('ADDI','SLTI','SLTIU','XORI','ORI','ANDI','SLLI','SRLI','SRAI'):
-            self.rd(rd,self.alu(name[:-1],a,r2 if name in ('SLLI','SRLI','SRAI') else imm))
+            self.rd(rd,self.alu('SLTU' if name=='SLTIU' else name[:-1],a,r2 if name in ('SLLI','SRLI','SRAI') else imm))
         elif name in ('LB','LH','LW','LBU','LHU'):
             n,sgn={'LB':(1,True),'LH':(2,True),'LW':(4,False),'LBU':(1,False),'LHU':(2,False)}[name]
             self.rd(rd,self.load(self.alu('ADD',a,imm),n,sgn))

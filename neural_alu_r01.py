@@ -84,6 +84,7 @@ class Circuit:
             self.stages.append((self.src[idx],targets,inv,weights[idx]))
         return self
     def run(self,op,a,b,ablate=False):
+        if op not in OPS:raise ValueError(f"unknown ALU operation: {op}")
         spike=np.zeros(self.n,dtype=np.int8)
         for name,p in self.inputs.items():
             value=0 if name=='zero' else ((a>>int(name[1:]))&1) if name.startswith('a') else ((b>>int(name[1:]))&1) if name.startswith('b') else int(name==op)

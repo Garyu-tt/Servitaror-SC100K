@@ -1,0 +1,41 @@
+{
+  "status": "PASS",
+  "before": {
+    "ad_updates": 0,
+    "alu_calls": 5138332,
+    "atomic_calls": 137,
+    "atomic_selects": 0,
+    "boundaries": 1158426,
+    "csr_calls": 379,
+    "decode_calls": 1158425,
+    "fences": 6,
+    "interrupts": 0,
+    "pte_reads": 1334,
+    "returns": 0,
+    "sbi_calls": 0,
+    "steps": 1158425,
+    "traps": 1,
+    "waits": 0,
+    "walks": 1318
+  },
+  "after": {
+    "ad_updates": 0,
+    "alu_calls": 7278631,
+    "atomic_calls": 158,
+    "atomic_selects": 0,
+    "boundaries": 1608426,
+    "csr_calls": 405,
+    "decode_calls": 1608425,
+    "fences": 6,
+    "interrupts": 0,
+    "pte_reads": 1608,
+    "returns": 0,
+    "sbi_calls": 1,
+    "steps": 1608425,
+    "traps": 1,
+    "waits": 0,
+    "walks": 1590
+  },
+  "new_uart": "[    0.000000] SBI specification v0.2 detected\r\n",
+  "checkpoint_sha256": "ad47901388a0046e15a4831e7ffe36195c32e5d2ea513f38f57ec006d372e872"
+}

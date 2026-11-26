@@ -1,0 +1,39 @@
+{
+  "checkpoint_sha256": "c1cae69c13bac5cc329af81c322f575cc0a26f1c7a256f1be411df1a2508468f",
+  "counters": {
+    "ad_updates": 0,
+    "alu_calls": 1097352,
+    "atomic_calls": 37,
+    "atomic_selects": 0,
+    "boundaries": 301402,
+    "csr_calls": 89,
+    "decode_calls": 301401,
+    "fences": 2,
+    "interrupts": 0,
+    "pte_reads": 4110,
+    "returns": 0,
+    "sbi_calls": 0,
+    "steps": 301401,
+    "traps": 1,
+    "waits": 0,
+    "walks": 4110
+  },
+  "fdt_unchanged": true,
+  "fdt_ram_base": "0x80000000",
+  "fdt_ram_bytes": 67108864,
+  "uart": "",
+  "guest_ram_text": [
+    {
+      "physical": "0x809df32b",
+      "text": "?Linux version 5.15.43 (bane9@bane9-1-2) (riscv32-buildroot-linux-gnu-gcc.br_real (Buildroot 2023.02.2) 11.4.0, GNU ld (GNU Binutils) 2.38) #11 Mon Aug 26 00:34:46 CEST 202424"
+    },
+    {
+      "physical": "0x809df3df",
+      "text": "?OF: fdt: Ignoring memory range 0x20000000000 - 0x2002000000000"
+    },
+    {
+      "physical": "0x809df423",
+      "text": "?Machine model: SC100K R1111"
+    }
+  ]
+}

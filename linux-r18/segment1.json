@@ -1,0 +1,24 @@
+{
+  "retired": 205401,
+  "delta": 16000,
+  "pc": "0xc0236338",
+  "mode": 1,
+  "stop": "budget",
+  "fault": null,
+  "seconds": 23.132,
+  "alu_calls": 639751,
+  "serial": "",
+  "x13": "0x0",
+  "x14": "0x11",
+  "linux_booted": false,
+  "image_sha256": "9feee94f9fbb3f9a761485fb982c78977594d9c0db8b0b411b5677dfb5efc325",
+  "checkpoint_bytes": 4122939,
+  "cache": {
+    "hits": 20793,
+    "misses": 13,
+    "flushes": 0,
+    "hit_rate": 0.9993751802364702
+  },
+  "walks": 3947,
+  "pte_reads": 3947
+}

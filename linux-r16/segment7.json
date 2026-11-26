@@ -1,0 +1,20 @@
+{
+  "retired": 154401,
+  "delta": 3841,
+  "pc": "0xc0000090",
+  "mode": 1,
+  "stop": "guest_trap",
+  "fault": {
+    "cause": "0xc",
+    "tval": "0x80400090",
+    "epc": "0x80400090"
+  },
+  "seconds": 3.324,
+  "alu_calls": 360233,
+  "serial": "",
+  "x13": "0x400000",
+  "x14": "0x3f0000",
+  "linux_booted": false,
+  "image_sha256": "9feee94f9fbb3f9a761485fb982c78977594d9c0db8b0b411b5677dfb5efc325",
+  "checkpoint_bytes": 4122053
+}

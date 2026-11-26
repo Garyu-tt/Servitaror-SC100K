@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "width": 320,
+  "height": 200,
+  "indexed_colors": 256,
+  "frame_bytes": 64000,
+  "framebuffer_cells": 29580,
+  "estimated_cells": 389640,
+  "guest_instructions": 12,
+  "guest_pixels_first": [
+    17,
+    34,
+    51,
+    68
+  ],
+  "guest_pixels_last": [
+    85,
+    0,
+    0,
+    0
+  ],
+  "checks": 5,
+  "exact_checkpoint": true,
+  "frame_sha256": "e99563553d0a68d625f5fdf0d9a84e45dc35003a7742991fc9c1f36822b8b20c"
+}

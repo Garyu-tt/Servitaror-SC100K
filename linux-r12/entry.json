@@ -1,0 +1,274 @@
+{
+  "status": "ENTRY_EXECUTED",
+  "image_sha256": "9feee94f9fbb3f9a761485fb982c78977594d9c0db8b0b411b5677dfb5efc325",
+  "header": {
+    "offset": 4194304,
+    "image_size": 6324856,
+    "flags": 0,
+    "version": 2
+  },
+  "ram_bytes": 67108864,
+  "retired": 512,
+  "alu_calls": 1223,
+  "decoder_calls": 512,
+  "stop": "budget",
+  "fault": null,
+  "pc": "0x8040010c",
+  "mode": 1,
+  "serial": "",
+  "seconds": 11.645,
+  "entry_trace": [
+    {
+      "pc": "0x80400000",
+      "ins": "0xcc0006f",
+      "mode": 1
+    },
+    {
+      "pc": "0x804000cc",
+      "ins": "0x10401073",
+      "mode": 1
+    },
+    {
+      "pc": "0x804000d0",
+      "ins": "0x14401073",
+      "mode": 1
+    },
+    {
+      "pc": "0x804000d4",
+      "ins": "0x5d6197",
+      "mode": 1
+    },
+    {
+      "pc": "0x804000d8",
+      "ins": "0xbcc18193",
+      "mode": 1
+    },
+    {
+      "pc": "0x804000dc",
+      "ins": "0x62b7",
+      "mode": 1
+    },
+    {
+      "pc": "0x804000e0",
+      "ins": "0x1002b073",
+      "mode": 1
+    },
+    {
+      "pc": "0x804000e4",
+      "ins": "0x81018693",
+      "mode": 1
+    },
+    {
+      "pc": "0x804000e8",
+      "ins": "0x100613",
+      "mode": 1
+    },
+    {
+      "pc": "0x804000ec",
+      "ins": "0xc6a6af",
+      "mode": 1
+    },
+    {
+      "pc": "0x804000f0",
+      "ins": "0x8069063",
+      "mode": 1
+    },
+    {
+      "pc": "0x804000f4",
+      "ins": "0x5d6697",
+      "mode": 1
+    },
+    {
+      "pc": "0x804000f8",
+      "ins": "0xf0c68693",
+      "mode": 1
+    },
+    {
+      "pc": "0x804000fc",
+      "ins": "0x608717",
+      "mode": 1
+    },
+    {
+      "pc": "0x80400100",
+      "ins": "0x17c70713",
+      "mode": 1
+    },
+    {
+      "pc": "0x80400104",
+      "ins": "0xe6d863",
+      "mode": 1
+    }
+  ],
+  "trace": [
+    {
+      "pc": "0x80400110",
+      "ins": "0xfee6cce3",
+      "mode": 1
+    },
+    {
+      "pc": "0x80400108",
+      "ins": "0x6a023",
+      "mode": 1
+    },
+    {
+      "pc": "0x8040010c",
+      "ins": "0x468693",
+      "mode": 1
+    },
+    {
+      "pc": "0x80400110",
+      "ins": "0xfee6cce3",
+      "mode": 1
+    },
+    {
+      "pc": "0x80400108",
+      "ins": "0x6a023",
+      "mode": 1
+    },
+    {
+      "pc": "0x8040010c",
+      "ins": "0x468693",
+      "mode": 1
+    },
+    {
+      "pc": "0x80400110",
+      "ins": "0xfee6cce3",
+      "mode": 1
+    },
+    {
+      "pc": "0x80400108",
+      "ins": "0x6a023",
+      "mode": 1
+    },
+    {
+      "pc": "0x8040010c",
+      "ins": "0x468693",
+      "mode": 1
+    },
+    {
+      "pc": "0x80400110",
+      "ins": "0xfee6cce3",
+      "mode": 1
+    },
+    {
+      "pc": "0x80400108",
+      "ins": "0x6a023",
+      "mode": 1
+    },
+    {
+      "pc": "0x8040010c",
+      "ins": "0x468693",
+      "mode": 1
+    },
+    {
+      "pc": "0x80400110",
+      "ins": "0xfee6cce3",
+      "mode": 1
+    },
+    {
+      "pc": "0x80400108",
+      "ins": "0x6a023",
+      "mode": 1
+    },
+    {
+      "pc": "0x8040010c",
+      "ins": "0x468693",
+      "mode": 1
+    },
+    {
+      "pc": "0x80400110",
+      "ins": "0xfee6cce3",
+      "mode": 1
+    },
+    {
+      "pc": "0x80400108",
+      "ins": "0x6a023",
+      "mode": 1
+    },
+    {
+      "pc": "0x8040010c",
+      "ins": "0x468693",
+      "mode": 1
+    },
+    {
+      "pc": "0x80400110",
+      "ins": "0xfee6cce3",
+      "mode": 1
+    },
+    {
+      "pc": "0x80400108",
+      "ins": "0x6a023",
+      "mode": 1
+    },
+    {
+      "pc": "0x8040010c",
+      "ins": "0x468693",
+      "mode": 1
+    },
+    {
+      "pc": "0x80400110",
+      "ins": "0xfee6cce3",
+      "mode": 1
+    },
+    {
+      "pc": "0x80400108",
+      "ins": "0x6a023",
+      "mode": 1
+    },
+    {
+      "pc": "0x8040010c",
+      "ins": "0x468693",
+      "mode": 1
+    },
+    {
+      "pc": "0x80400110",
+      "ins": "0xfee6cce3",
+      "mode": 1
+    },
+    {
+      "pc": "0x80400108",
+      "ins": "0x6a023",
+      "mode": 1
+    },
+    {
+      "pc": "0x8040010c",
+      "ins": "0x468693",
+      "mode": 1
+    },
+    {
+      "pc": "0x80400110",
+      "ins": "0xfee6cce3",
+      "mode": 1
+    },
+    {
+      "pc": "0x80400108",
+      "ins": "0x6a023",
+      "mode": 1
+    },
+    {
+      "pc": "0x8040010c",
+      "ins": "0x468693",
+      "mode": 1
+    },
+    {
+      "pc": "0x80400110",
+      "ins": "0xfee6cce3",
+      "mode": 1
+    },
+    {
+      "pc": "0x80400108",
+      "ins": "0x6a023",
+      "mode": 1
+    }
+  ],
+  "register_snapshot": {
+    "x10": "0x0",
+    "x11": "0x83ff0000",
+    "x13": "0x809d6294",
+    "x14": "0x80a08278"
+  },
+  "linux_booted": false,
+  "limitations": "Entry probe only. Stops at first guest trap (including legitimate traps). No Linux shell claim; host SBI, peripheral and separate neural circuits.",
+  "fixture": false,
+  "ablation": "invalid dual-rail readout"
+}

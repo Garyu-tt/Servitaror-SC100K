@@ -1,0 +1,28 @@
+{
+  "status": "PASS",
+  "operations": [
+    "MUL",
+    "MULH",
+    "MULHSU",
+    "MULHU",
+    "DIV",
+    "DIVU",
+    "REM",
+    "REMU"
+  ],
+  "arithmetic_vectors": 160,
+  "errors": 0,
+  "seconds": 8.767,
+  "operations_per_sec": 18.25,
+  "fixed_rounds": 32,
+  "ablation_rejected": true,
+  "guest_instructions": 11,
+  "guest_m_ops": 8,
+  "guest_seconds": 0.66,
+  "decoder_neurons": 6150,
+  "math_budget_cells": 30000,
+  "total_budget_cells": 110200,
+  "gate_evaluations": 6720412,
+  "linux_booted": false,
+  "limitations": "Vectorized fixed threshold microsequencer, estimated reusable lane capacity, not an enumerated integrated GENESIS graph. Host schedules phases and wire permutations. No RV32A, privileged ISA or Linux."
+}

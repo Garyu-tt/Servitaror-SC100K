@@ -1,0 +1,44 @@
+{
+  "retired": 204401,
+  "delta": 25000,
+  "pc": "0xc023635c",
+  "mode": 1,
+  "stop": "budget",
+  "fault": null,
+  "seconds": 37.32,
+  "alu_calls": 596488,
+  "serial": "",
+  "x13": "0x3",
+  "x14": "0x0",
+  "linux_booted": false,
+  "revision": "R19-corrected",
+  "image_sha256": "9feee94f9fbb3f9a761485fb982c78977594d9c0db8b0b411b5677dfb5efc325",
+  "checkpoint_sha256": "bb90c46f558a466ed37a42ce35ed128c78afadc93c9c32a739643caf25aaaf3e",
+  "oracle_checks": 118233,
+  "oracle_counts": {
+    "AND": 33350,
+    "SLL": 3683,
+    "SRL": 268,
+    "ADD": 41666,
+    "OR": 36151,
+    "SLTU": 1665,
+    "XOR": 996,
+    "SLT": 346,
+    "SUB": 108
+  },
+  "sltiu_examples": [
+    {
+      "step": 186198,
+      "pc": "0xc0252df4",
+      "operand": "0x2f",
+      "imm": "0x80",
+      "expected": 1
+    }
+  ],
+  "cache": {
+    "hits": 32441,
+    "misses": 18,
+    "flushes": 0,
+    "hit_rate": 0.9994454542653809
+  }
+}

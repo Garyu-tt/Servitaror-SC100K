@@ -38,3 +38,4 @@ jobs:
       - run: python neural_trace_r34.py --build-dir /tmp/sc500k-trace
       - run: python neural_demo_r35.py --build-dir /tmp/sc500k-demo --test
       - run: python neural_uart_r36.py --build-dir /tmp/sc500k-uart
+      - run: python neural_boot_progress_r37.py

@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "comparisons": 1488,
+  "ablation_cases": 3,
+  "full_state_equal": true,
+  "specialized_rails": [
+    5580,
+    1944,
+    280
+  ]
+}

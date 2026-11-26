@@ -61,6 +61,7 @@ def accelerate(b):
     ports=[p for seq in ctrl.inputs.values() for p in seq]
     control=Quotient(ctrl.c.n,ctrl.c.edges,ctrl.c.level,ports,[ctrl.take]+ctrl.outputs)
     def ar(op,a,v,ablate=False):
+        if op not in OPS:raise ValueError(f"unknown ALU operation: {op}")
         bits=[0 if n=='zero' else ((a>>int(n[1:]))&1) if n.startswith('a') else ((v>>int(n[1:]))&1) if n.startswith('b') else int(n==op) for n in names]
         out,count=alu.run(bits,ablate)
         return sum(x<<i for i,x in enumerate(out)),count

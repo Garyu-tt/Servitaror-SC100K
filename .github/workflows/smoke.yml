@@ -26,3 +26,4 @@ jobs:
       - run: python neural_native_r14.py --build-dir /tmp/sc100k-native
       - run: python neural_recurrent_r15.py --build-dir /tmp/sc100k-native-r15
       - run: python neural_tlb_r17.py --build-dir /tmp/sc100k-native-r17
+      - run: python neural_dispatch_r19.py --build-dir /tmp/sc100k-native-r19

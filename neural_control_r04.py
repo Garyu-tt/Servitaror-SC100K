@@ -84,10 +84,19 @@ class ControlCPU(RegisterCPU):
         return self.prepare_extension(name,a,b)
     def finish_instruction_extension(self,name,a,b,ins):
         self.finish_extension(name,a,b)
+    def fetch(self,pc):
+        return self.load(pc,4)
+    def illegal(self,ins):
+        raise RuntimeError("illegal instruction")
+    def check_next_pc(self,nxt):
+        if nxt&3:raise RuntimeError("instruction address misaligned")
+    def special_step(self,name,ins,pc):
+        return False
     def step(self):
         if self.halted:raise RuntimeError('already halted')
-        pc=self.pc;ins=self.load(pc,4);name=self.decoder.decode(ins);self.decode_calls+=1
-        if name is None:raise RuntimeError('illegal instruction')
+        pc=self.pc;ins=self.fetch(pc);name=self.decoder.decode(ins);self.decode_calls+=1
+        if name is None:self.illegal(ins)
+        if self.special_step(name,ins,pc):return
         rd=(ins>>7)&31;r1=(ins>>15)&31;r2=(ins>>20)&31
         a=self.reg[r1];b=self.reg[r2];imm=sext(ins>>20,12)
         seq=self.alu('ADD',pc,4);target=seq
@@ -119,7 +128,7 @@ class ControlCPU(RegisterCPU):
             result,store=self.prepare_instruction_extension(name,a,b,ins);pending=(rd,result)
         nxt,taken=self.control.route(name,seq,target,x,s,u)
         # IALIGN=32; detect target fault before changing registers or memory.
-        if nxt&3:raise RuntimeError('instruction address misaligned')
+        self.check_next_pc(nxt)
         if store:self.store(*store)
         if pending:self.rd(*pending)
         self.pc=nxt;self.steps+=1;self.halted=halt

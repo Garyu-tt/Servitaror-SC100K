@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "scenario_checks": 18,
+  "implemented_modes": [
+    "M",
+    "S",
+    "U"
+  ],
+  "new_system_patterns": [
+    "ECALL",
+    "MRET",
+    "SRET",
+    "WFI"
+  ],
+  "guest_retired_in_roundtrip": 6,
+  "roundtrip_traps": 1,
+  "roundtrip_returns": 2,
+  "roundtrip_result": 42,
+  "privilege_cells": 60,
+  "decoder_cells": 9520,
+  "total_budget_cells": 121950,
+  "seconds": 2.704,
+  "linux_booted": false,
+  "limitations": "Synchronous exception subset; host dispatches policy, no interrupt delivery, MMU, PMP, counters, TVM/TW/TSR/MPRV, full privilege conformance or continuous integrated GENESIS."
+}

@@ -1,0 +1,3 @@
+# R10: bounded Sv32 translation
+
+Two-level Sv32 page walker, 4 KiB and aligned 4 MiB pages, user/supervisor permissions, SUM/MXR, automatic A/D updates, page faults and physical LR/SC alias handling. Address arithmetic and PTE bit transformations use the Q4 ALU; permission policy and physical bus are host control. No TLB (SFENCE.VMA is a checked no-op), no PMP, MPRV/TVM, 34-bit physical bus or Linux-scale RAM. FENCE.I accepts canonical encoding only. Not full privileged conformance. Local run: 18 scenarios, two guest virtual instructions, four guest page walks, eight PTE reads, three A/D updates. Estimated 123110 logical cells, not measured integrated GENESIS capacity. Linux not booted. Run `python neural_mmu_r10.py`.

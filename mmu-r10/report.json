@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "scenarios": 18,
+  "guest_virtual_instructions": 2,
+  "guest_page_walks": 4,
+  "pte_reads": 8,
+  "ad_updates": 3,
+  "physical_alias_lr_sc": true,
+  "total_budget_cells": 123110,
+  "seconds": 4.824,
+  "linux_booted": false,
+  "limitations": "Host permission policy and physical bus, ALU page-walk arithmetic; no TLB, PMP, MPRV/TVM, 34-bit physical bus, Linux-scale RAM or full architectural conformance. Fixed circuits remain separate."
+}

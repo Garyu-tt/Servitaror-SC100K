@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "patterns": 39,
+  "vectors": 3296,
+  "legal": 1356,
+  "illegal": 1940,
+  "decode_errors": 0,
+  "ablation_rejected": true,
+  "decoder_neurons": 4870,
+  "decoder_synapses": 45500,
+  "total_circuit_neurons": 33520,
+  "decode_per_sec": 782.71,
+  "guest_instructions": 64,
+  "guest_ips": 89.21,
+  "neural_decode_calls": 64,
+  "neural_alu_calls": 143,
+  "linux_booted": false,
+  "limitations": "Host field extraction, dispatch, register storage, memory and exception handling. Decoder is fixed wiring, not learned. Mask-table oracle shares pattern specification; not independent ISA conformance."
+}

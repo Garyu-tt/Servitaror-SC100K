@@ -1,4 +1,4 @@
-name: R01 neural smoke
+name: SC100K neural smoke
 on: [push, pull_request]
 jobs:
   smoke:
@@ -11,3 +11,4 @@ jobs:
       - run: pip install -r requirements.txt
       - run: python neural_alu_r01.py
       - run: python neural_rv32i_r01.py
+      - run: python neural_decoder_r02.py

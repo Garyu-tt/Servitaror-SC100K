@@ -29,3 +29,4 @@ jobs:
       - run: python neural_dispatch_r19.py --build-dir /tmp/sc100k-native-r19
       - run: python neural_packed_r24.py --build-dir /tmp/sc100k-native-r24
       - run: python neural_hippocampus_r27.py --build-dir /tmp/sc500k-native
+      - run: python neural_crossbar_r28.py --build-dir /tmp/sc500k-crossbar

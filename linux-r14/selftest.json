@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "equivalence_checks": 720,
+  "ablation": true,
+  "full_state_equal": true,
+  "quotient_groups": [
+    5730,
+    2008,
+    492
+  ]
+}

@@ -23,3 +23,4 @@ jobs:
       - run: python neural_board_r11.py
       - run: python neural_linux_r12.py
       - run: python neural_resume_r13.py --checkpoint /tmp/sc100k-fixture.npz
+      - run: python neural_native_r14.py --build-dir /tmp/sc100k-native

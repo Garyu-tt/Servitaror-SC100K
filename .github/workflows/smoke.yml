@@ -31,3 +31,4 @@ jobs:
       - run: python neural_hippocampus_r27.py --build-dir /tmp/sc500k-native
       - run: python neural_crossbar_r28.py --build-dir /tmp/sc500k-crossbar
       - run: python neural_paged_r29.py --build-dir /tmp/sc500k-paged
+      - run: python neural_devices_r30.py --build-dir /tmp/sc500k-devices

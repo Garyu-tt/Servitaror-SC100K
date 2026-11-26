@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "guest_instructions": 14,
+  "guest_disk_value": 42,
+  "guest_gpu_words": [
+    "0x42427e00",
+    "0x7e4242"
+  ],
+  "gpu_frame": [
+    "........",
+    ".######.",
+    ".#....#.",
+    ".#....#.",
+    ".#....#.",
+    ".#....#.",
+    ".######.",
+    "........"
+  ],
+  "sv32_device_access": true,
+  "permission_checks": 5,
+  "full_checkpoint_equal": true,
+  "ram_bytes": 67108864,
+  "disk_bytes": 16777216,
+  "estimated_cells": 360060
+}

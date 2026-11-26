@@ -1,0 +1,125 @@
+{
+  "retired": 293401,
+  "delta": 12000,
+  "pc": "0xc00220b8",
+  "mode": 1,
+  "stop": "budget",
+  "fault": null,
+  "seconds": 19.942,
+  "alu_calls": 1020060,
+  "serial": "",
+  "x13": "0x64",
+  "x14": "0x65",
+  "linux_booted": false,
+  "revision": "R19-corrected",
+  "image_sha256": "9feee94f9fbb3f9a761485fb982c78977594d9c0db8b0b411b5677dfb5efc325",
+  "checkpoint_sha256": "990da8beef3a86cb7fd30bb8c33f222b08f25589c3cd4429e8b2a22704705277",
+  "oracle_checks": 58494,
+  "oracle_counts": {
+    "AND": 16765,
+    "SLL": 946,
+    "SRL": 225,
+    "ADD": 21763,
+    "OR": 16680,
+    "SLT": 94,
+    "SLTU": 597,
+    "XOR": 1297,
+    "SUB": 95,
+    "MULHU": 5,
+    "MUL": 13,
+    "SRA": 13,
+    "DIVU": 1
+  },
+  "sltiu_examples": [
+    {
+      "step": 286573,
+      "pc": "0xc0252df4",
+      "operand": "0x8",
+      "imm": "0x80",
+      "expected": 1
+    },
+    {
+      "step": 287049,
+      "pc": "0xc02530d4",
+      "operand": "0x58",
+      "imm": "0x10",
+      "expected": 0
+    },
+    {
+      "step": 287457,
+      "pc": "0xc0252df4",
+      "operand": "0x11",
+      "imm": "0x80",
+      "expected": 1
+    },
+    {
+      "step": 287852,
+      "pc": "0xc0252df4",
+      "operand": "0x1",
+      "imm": "0x80",
+      "expected": 1
+    },
+    {
+      "step": 288372,
+      "pc": "0xc0252df4",
+      "operand": "0x58",
+      "imm": "0x80",
+      "expected": 1
+    },
+    {
+      "step": 288562,
+      "pc": "0xc0252df4",
+      "operand": "0x19",
+      "imm": "0x80",
+      "expected": 1
+    },
+    {
+      "step": 289003,
+      "pc": "0xc0252df4",
+      "operand": "0x1",
+      "imm": "0x80",
+      "expected": 1
+    },
+    {
+      "step": 289357,
+      "pc": "0xc0252df4",
+      "operand": "0x1",
+      "imm": "0x80",
+      "expected": 1
+    },
+    {
+      "step": 289723,
+      "pc": "0xc0252df4",
+      "operand": "0x1",
+      "imm": "0x80",
+      "expected": 1
+    },
+    {
+      "step": 290027,
+      "pc": "0xc0252df4",
+      "operand": "0xf",
+      "imm": "0x80",
+      "expected": 1
+    },
+    {
+      "step": 290980,
+      "pc": "0xc0252df4",
+      "operand": "0x5",
+      "imm": "0x80",
+      "expected": 1
+    },
+    {
+      "step": 291273,
+      "pc": "0xc0252df4",
+      "operand": "0x2f",
+      "imm": "0x80",
+      "expected": 1
+    }
+  ],
+  "cache": {
+    "hits": 15829,
+    "misses": 60,
+    "flushes": 0,
+    "hit_rate": 0.9962238026307508
+  }
+}

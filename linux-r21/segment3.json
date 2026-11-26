@@ -1,0 +1,153 @@
+{
+  "retired": 317401,
+  "delta": 12000,
+  "pc": "0xc01fdb08",
+  "mode": 1,
+  "stop": "budget",
+  "fault": null,
+  "seconds": 24.867,
+  "alu_calls": 1136937,
+  "serial": "[ ",
+  "x13": "0xc0507740",
+  "x14": "0x5",
+  "linux_booted": false,
+  "revision": "R19-corrected",
+  "image_sha256": "9feee94f9fbb3f9a761485fb982c78977594d9c0db8b0b411b5677dfb5efc325",
+  "checkpoint_sha256": "1830d7e3c0560436731aa251954be88f55633101063f36f8bb49531f268ed832",
+  "oracle_checks": 58811,
+  "oracle_counts": {
+    "AND": 16896,
+    "SLL": 470,
+    "SRL": 304,
+    "ADD": 22543,
+    "OR": 16130,
+    "XOR": 1660,
+    "SUB": 95,
+    "SLTU": 512,
+    "MUL": 47,
+    "MULHU": 23,
+    "SLT": 91,
+    "SRA": 38,
+    "DIVU": 2
+  },
+  "sltiu_examples": [
+    {
+      "step": 306477,
+      "pc": "0xc0252df4",
+      "operand": "0x4",
+      "imm": "0x80",
+      "expected": 1
+    },
+    {
+      "step": 306946,
+      "pc": "0xc0252df4",
+      "operand": "0x8",
+      "imm": "0x80",
+      "expected": 1
+    },
+    {
+      "step": 308746,
+      "pc": "0xc02530d4",
+      "operand": "0x58",
+      "imm": "0x10",
+      "expected": 0
+    },
+    {
+      "step": 309129,
+      "pc": "0xc0252df4",
+      "operand": "0xc",
+      "imm": "0x80",
+      "expected": 1
+    },
+    {
+      "step": 309746,
+      "pc": "0xc0252df4",
+      "operand": "0x8",
+      "imm": "0x80",
+      "expected": 1
+    },
+    {
+      "step": 309988,
+      "pc": "0xc0252df4",
+      "operand": "0x1",
+      "imm": "0x80",
+      "expected": 1
+    },
+    {
+      "step": 310632,
+      "pc": "0xc0252df4",
+      "operand": "0xb",
+      "imm": "0x80",
+      "expected": 1
+    },
+    {
+      "step": 310927,
+      "pc": "0xc0252df4",
+      "operand": "0x3",
+      "imm": "0x80",
+      "expected": 1
+    },
+    {
+      "step": 311504,
+      "pc": "0xc0252df4",
+      "operand": "0x58",
+      "imm": "0x80",
+      "expected": 1
+    },
+    {
+      "step": 311694,
+      "pc": "0xc0252df4",
+      "operand": "0x32",
+      "imm": "0x80",
+      "expected": 1
+    },
+    {
+      "step": 312260,
+      "pc": "0xc0252df4",
+      "operand": "0x1",
+      "imm": "0x80",
+      "expected": 1
+    },
+    {
+      "step": 312614,
+      "pc": "0xc0252df4",
+      "operand": "0x1",
+      "imm": "0x80",
+      "expected": 1
+    },
+    {
+      "step": 312980,
+      "pc": "0xc0252df4",
+      "operand": "0x1",
+      "imm": "0x80",
+      "expected": 1
+    },
+    {
+      "step": 313456,
+      "pc": "0xc0252df4",
+      "operand": "0xf",
+      "imm": "0x80",
+      "expected": 1
+    },
+    {
+      "step": 314420,
+      "pc": "0xc0252df4",
+      "operand": "0x58",
+      "imm": "0x80",
+      "expected": 1
+    },
+    {
+      "step": 314610,
+      "pc": "0xc0252df4",
+      "operand": "0xac",
+      "imm": "0x80",
+      "expected": 0
+    }
+  ],
+  "cache": {
+    "hits": 15805,
+    "misses": 69,
+    "flushes": 1,
+    "hit_rate": 0.9956532694972912
+  }
+}

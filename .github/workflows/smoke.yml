@@ -25,3 +25,4 @@ jobs:
       - run: python neural_resume_r13.py --checkpoint /tmp/sc100k-fixture.npz
       - run: python neural_native_r14.py --build-dir /tmp/sc100k-native
       - run: python neural_recurrent_r15.py --build-dir /tmp/sc100k-native-r15
+      - run: python neural_tlb_r17.py --build-dir /tmp/sc100k-native-r17

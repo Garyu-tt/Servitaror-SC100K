@@ -10,6 +10,7 @@ from neural_uart_r36 import fresh,restore,save,PageCache,oracle,moracle
 from neural_trace_r34 import Recorder
 from neural_demo_r35 import Spatial,AXES
 from neural_linux_r12 import fixture
+from region_diagnostics import capture
 
 class Workstation:
     def __init__(self,b,a,h):
@@ -22,6 +23,7 @@ class Workstation:
         self.commands=queue.Queue(64);self.shutdown=threading.Event()
         self.snapshot={};self.last_steps=b.steps;self.last_refresh=self.start;self.ips=0
         self.dirty=False
+        self.refresh_interval=1.0
         old=b.c.run;oldm=b.math.run
         def ar(op,x,y,ablate=False):
             v=old(op,x,y,ablate)
@@ -65,7 +67,8 @@ class Workstation:
             irq=b.interrupts,returns=b.returns,traps=b.traps,walks=b.walks,
             rx_free=b.rx.size-b.rx.count,error=self.error,trap=self.trap,
             poweroff=b.poweroff,checkpoint=self.saved,coordinates=bool(self.spatial),
-            scope='Sampled ALU / decoder / control activity; RAM and devices not traced',
+            scope='Sampled ALU / decoder / control activity; RAM and recurrent states inspected separately',
+            regions=capture(b,self.cache),
             fixture=self.a.fixture)
     def persist(self):
         if self.error:raise RuntimeError('unsafe state after host error')
@@ -97,6 +100,10 @@ class Workstation:
             if self.error or self.b.poweroff:raise ValueError('runtime stopped')
             self.trap=None;self.step(True)
         elif op=='save':self.persist()
+        elif op=='refresh_rate':
+            v=data.get('seconds')
+            if v not in (.5,1.0,2.0,5.0):raise ValueError('refresh interval')
+            self.refresh_interval=v
         elif op=='serial':
             s=data.get('text')
             if not isinstance(s,str) or not 1<=len(s.encode())<=32:raise ValueError('UART limit: 1..32 bytes')
@@ -131,7 +138,7 @@ class Workstation:
                         for _ in range(128):
                             self.step()
                             if not self.running or self.shutdown.is_set() or not self.commands.empty():break
-                        if time.monotonic()-self.last_refresh>=.6 or not self.running:
+                        if time.monotonic()-self.last_refresh>=self.refresh_interval or not self.running:
                             if self.running and self.commands.empty() and not self.shutdown.is_set():self.step(True)
                             self.publish()
                         if not self.running or time.monotonic()-self.last_save>=self.a.interval:

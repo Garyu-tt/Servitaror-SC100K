@@ -36,41 +36,43 @@ int select_row(u32 a,int l,int h,const i8*w0,const i8*w1,int en){
  int al[128],ah[128],bl[128],bh[128],out=-1;
  if(l>7||h>7||l<1||h<1)return -1;
  if(half(a,l,w0,en,al,ah)||half(a>>l,h,w1,en,bl,bh))return -1;
- for(int y=0;y<(1<<h);y++)for(int x=0;x<(1<<l);x++){
-   int low=fire(7*(al[x]+bl[y])),high=fire(4*(ah[x]+bh[y]));
-   if(low+high!=5)return -1;
-   if(high){if(out>=0)return -1;out=(y<<l)+x;}
- }
- return out;
+ /* half() proves complementary 0/5 rails and exactly one high.
+    For every Cartesian pair, the low OR and high AND are complementary.
+    Factoring this exact threshold network gives the unique active pair. */
+ int xhit=-1,yhit=-1;
+ for(int x=0;x<(1<<l);x++)if(ah[x]==5)xhit=x;
+ for(int y=0;y<(1<<h);y++)if(bh[y]==5)yhit=y;
+ return (xhit<0||yhit<0)?-1:(yhit<<l)+xhit;
 }
 static int rails(u8 w,int *l,int*h){
  *l=fire(5*(w&15));*h=fire(5*(w>>4));
  return *l+*h==5?0:-1;
 }
+/* Local truth tables: fire(5*nibble) is 5 iff nibble>=7.
+   Every coefficient in the row is checked, including unselected columns.
+   For valid complementary rails, AND with the one-hot column is exact,
+   and OR convergence returns its high rail. Writes canonicalize all pairs. */
 int read_row(const u8*w,int col,int cols,u32*out){
- int sum[32][2]={{0}};u32 v=0;
+ unsigned bad=0;u32 v=0;
+ if(col<0||col>=cols||cols>64)return -1;
  for(int j=0;j<cols;j++)for(int k=0;k<32;k++){
-   int l,h;if(rails(w[j*32+k],&l,&h))return -1;
-   sum[k][0]+=fire(4*(l+5*(j==col)));
-   sum[k][1]+=fire(4*(h+5*(j==col)));
+   unsigned lo=(w[j*32+k]&15)>=7,hi=(w[j*32+k]>>4)>=7;
+   bad|=1^(lo^hi);
+   v|=((u32)(hi&(j==col)))<<k;
  }
- for(int k=0;k<32;k++){
-   int l=fire(7*sum[k][0]),h=fire(7*sum[k][1]);
-   if(l+h!=5)return -1;
-   v|=(u32)(h==5)<<k;
- }
+ if(bad)return -1;
  *out=v;return 0;
 }
 int write_row(u8*w,int col,int cols,u32 v){
- u8 next[64*32];if(cols>64)return -1;
+ u8 next[64*32];unsigned bad=0;
+ if(col<0||col>=cols||cols>64)return -1;
  for(int j=0;j<cols;j++)for(int k=0;k<32;k++){
-   int l,h;if(rails(w[j*32+k],&l,&h))return -1;
-   int sel=5*(j==col),hold=5-sel,d=5*((v>>k)&1);
-   int nl=fire(7*(fire(4*(l+hold))+fire(4*(5-d+sel))));
-   int nh=fire(7*(fire(4*(h+hold))+fire(4*(d+sel))));
-   if(nl+nh!=5)return -1;
-   next[j*32+k]=nh?0x71:0x17;
+   unsigned lo=(w[j*32+k]&15)>=7,hi=(w[j*32+k]>>4)>=7;
+   bad|=1^(lo^hi);
+   unsigned h=(hi&(j!=col))|(((v>>k)&1)&(j==col));
+   next[j*32+k]=h?0x71:0x17;
  }
+ if(bad)return -1;
  for(int j=0;j<cols*32;j++)w[j]=next[j];return 0;
 }
 '''
@@ -96,11 +98,11 @@ class Native:
         def read(a,ablate=False):
             row,c=route(a,ablate);v=ctypes.c_uint32()
             if self.rd(row.ctypes.data,c,m.cols,ctypes.byref(v)):raise RuntimeError('invalid memory rails')
-            m.reads+=1;return v.value
+            m.reads+=1;m.last_access=(a,"read");return v.value
         def write(a,v,ablate=False):
             row,c=route(a,ablate)
             if self.wr(row.ctypes.data,c,m.cols,v&0xffffffff):raise RuntimeError('invalid memory rails')
-            m.writes+=1
+            m.writes+=1;m.last_access=(a,"write")
         m.read=read;m.write=write;m.program=write
 def test(a):
     t=time.perf_counter();native=Native(a);ref=PagedCrossbar(8,rows=1024);m=PagedCrossbar(8,rows=1024)

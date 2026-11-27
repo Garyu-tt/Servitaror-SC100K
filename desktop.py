@@ -34,7 +34,7 @@ class Desktop:
     def __init__(self,root):
         self.root=root;self.w=None;self.loading=False;self.closing=False;self.photo=None;self.lastframe=None
         self.graphkey=None;self.serialtext='';self.result=None;self.error=None
-        root.title('SERVITAROR | Cogitator Workstation');root.geometry('1320x850');root.minsize(900,650);root.configure(bg=BG)
+        root.title('SERVITAROR R44 | Cogitator Workstation');root.geometry('1320x850');root.minsize(900,650);root.configure(bg=BG)
         style=ttk.Style(root);style.theme_use('clam')
         style.configure('.',background=BG,foreground=FG,font=('Segoe UI',10))
         style.configure('TButton',background='#293b2e',foreground=FG,padding=8)
@@ -75,6 +75,9 @@ class Desktop:
         self.metrics=tk.StringVar(value='Нет активной системы')
         ttk.Label(left,text='ДИАГНОСТИКА',foreground=GREEN,font=('Segoe UI',11,'bold')).pack(anchor='w',pady=(6,0))
         ttk.Label(left,textvariable=self.metrics,font=('Consolas',11),justify='left').pack(anchor='w',pady=6)
+        self.bootinfo=tk.StringVar(value='')
+        ttk.Label(left,textvariable=self.bootinfo,wraplength=600,foreground=GREEN,justify='left').pack(anchor='w')
+        ttk.Button(left,text='Копировать диагностику загрузки',command=self.copy_diagnostics).pack(anchor='w',pady=3)
         self.checkpoint=tk.StringVar(value='');ttk.Label(left,textvariable=self.checkpoint,wraplength=600,foreground=MUTED).pack(anchor='w')
         ttk.Label(right,text='ЭКРАН ГОСТЕВОЙ СИСТЕМЫ',foreground=GREEN,font=('Segoe UI',11,'bold')).pack(anchor='w')
         self.fb=tk.Canvas(right,bg='black',highlightbackground='#34463a',highlightthickness=1,height=280,takefocus=True);self.fb.pack(fill='both',expand=True,pady=7)
@@ -230,6 +233,13 @@ class Desktop:
         else:
             c.create_text(12,72,anchor='nw',text='\n'.join(f'{k}: {v}' for k,v in stat.items())+'\n\nСобытия хоста, не нейронные спайки.',fill=FG,font=('Consolas',10),width=w-24)
             if e:c.create_text(12,max(200,h-75),anchor='nw',text=f"{e['op']} {str(e['args'])[:90]} → {str(e['result'])[:90]}",fill=GREEN,width=w-24)
+    def copy_diagnostics(self):
+        if not self.w:return
+        s=self.w.snapshot
+        report={k:s[k] for k in ('retired','boundary','pc','mode','ips','irq','traps','walks','boot','checkpoint','uart')}
+        report['uart']=report['uart'][-8192:]
+        self.root.clipboard_clear();self.root.clipboard_append(json.dumps(report,ensure_ascii=False,indent=2))
+        self.msg.set('Диагностика скопирована')
     def refresh(self):
         if self.closing:return
         if self.result:
@@ -244,6 +254,12 @@ class Desktop:
         if s:
             self.status.set('ОШИБКА' if s['error'] else 'РАБОТАЕТ' if s['running'] else 'ПАУЗА')
             self.metrics.set(f"Инструкции {s['retired']:>12,}   Скорость {s['ips']:>8,}/с\nALU        {s['alu']:>12,}   PC       {s['pc']:>10}\nПроверки   {s['checks']:>12,}   IRQ      {s['irq']:>10,}\nMMU        {s['walks']:>12,}   Trap     {s['traps']:>10,}")
+            b=s['boot']
+            def duration(sec):
+                sec=int(sec);return f'{sec//3600:02d}:{sec//60%60:02d}:{sec%60:02d}'
+            hot=', '.join(f"{v['pc']} ({v['samples']})" for v in b['top_pc'][:3])
+            warning='Возможный цикл; требуется проверка' if b['possible_loop'] else 'Наблюдение PC (выборка)'
+            self.bootinfo.set(f"Сессия {duration(b['session_seconds'])} | CPU {duration(b['active_seconds'])} | средняя {b['average_ips']:,}/с\nUART без новых байтов {duration(b['uart_silent_seconds'])} / {b['uart_silent_instructions']:,} инструкций\n{warning}: {b['unique_pc']} адресов / {b['samples']} выборок\nЧастые PC: {hot or 'нет данных'}")
             if s['checkpoint']:self.checkpoint.set('Сохранено: '+s['checkpoint']['path'])
             if s['error'] or s['trap']:self.msg.set(str(s['error'] or s['trap']))
             self.rx.set(f"UART RX: {s['rx_free']} байт свободно · экран 320×200")
@@ -301,6 +317,8 @@ def main():
                 assert set(w.snapshot['regions'])==set(REGIONS)-set(EXPLICIT)
                 assert set(w.graphs)==set(EXPLICIT)
                 assert set(w.snapshot['trace'])==set(REGIONS)
+                assert w.snapshot['boot']['samples']>0
+                ui.copy_diagnostics()
                 assert w.snapshot['trace']['ram']['count']>0
                 assert len(REGIONS)==18
                 for name in EXPLICIT:

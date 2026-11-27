@@ -21,6 +21,8 @@ jobs:
           msystem: MINGW64
           path-type: inherit
           install: mingw-w64-x86_64-gcc
+      - name: Verify boot monitor
+        run: python test_boot_monitor.py
       - name: Compile and verify neural DLLs
         shell: msys2 {0}
         env:

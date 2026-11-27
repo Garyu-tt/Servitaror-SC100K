@@ -2,7 +2,7 @@
 The worker owns guest state and runs independently of the browser. Visualization
 samples actual neural evaluations; structural layout is not anatomical XYZ.
 """
-import argparse,base64,hashlib,json,queue,threading,time,webbrowser
+import argparse,base64,hashlib,json,os,queue,threading,time,webbrowser
 from pathlib import Path
 from http.server import ThreadingHTTPServer,BaseHTTPRequestHandler
 import numpy as np
@@ -12,6 +12,7 @@ from neural_demo_r35 import Spatial,AXES
 from neural_linux_r12 import fixture
 from region_diagnostics import capture
 from region_trace import RegionTrace
+from boot_monitor import BootMonitor
 
 class Workstation:
     def __init__(self,b,a,h):
@@ -27,6 +28,7 @@ class Workstation:
         self.refresh_interval=1.0
         self.full_trace=False
         self.trace=RegionTrace(b)
+        self.monitor=BootMonitor(b)
         old=b.c.run;oldm=b.math.run
         def ar(op,x,y,ablate=False):
             v=old(op,x,y,ablate)
@@ -71,7 +73,7 @@ class Workstation:
             rx_free=b.rx.size-b.rx.count,error=self.error,trap=self.trap,
             poweroff=b.poweroff,checkpoint=self.saved,coordinates=bool(self.spatial),
             scope='Explicit spike samples; observed region operations and state; host dispatch labeled',
-            trace=self.trace.snapshot(),full_trace=self.full_trace,
+            trace=self.trace.snapshot(),full_trace=self.full_trace,boot=self.monitor.report(),
             regions=capture(b,self.cache),
             fixture=self.a.fixture)
     def persist(self):
@@ -80,6 +82,16 @@ class Workstation:
         self.saved=dict(path=str(self.a.checkpoint),retired=self.b.steps,
             sha256=hashlib.sha256(self.a.checkpoint.read_bytes()).hexdigest())
         self.last_save=time.monotonic();self.dirty=False
+        # Diagnostic sidecar is deliberately outside the authoritative checkpoint.
+        report=dict(boot=self.monitor.report(),checkpoint=self.saved,pc=hex(self.b.pc),
+            irq=self.b.interrupts,traps=self.b.traps,mode=self.b.mode,
+            uart=bytes(self.b.serial[-8192:]).decode(errors='replace'))
+        sidecar=self.a.checkpoint.with_suffix('.diagnostics.json')
+        tmp=sidecar.with_suffix('.json.tmp')
+        try:
+            tmp.write_text(json.dumps(report,indent=2),encoding='utf-8');os.replace(tmp,sidecar)
+        except OSError:
+            pass
     def step(self,sample=False):
         b=self.b;before=b.traps
         self.trace.active=True;self.trace.sampled=bool(sample or self.full_trace)
@@ -106,7 +118,9 @@ class Workstation:
         elif op=='step':
             self.running=False
             if self.error or self.b.poweroff:raise ValueError('runtime stopped')
-            self.trap=None;self.step(True)
+            self.trap=None;t=time.perf_counter()
+            try:self.step(True)
+            finally:self.monitor.active+=time.perf_counter()-t
         elif op=='save':self.persist()
         elif op=='trace_mode':
             if type(data.get('full')) is not bool:raise ValueError('trace mode')
@@ -152,13 +166,19 @@ class Workstation:
                 except queue.Empty:pass
                 if self.running:
                     try:
-                        for _ in range(128):
-                            self.step()
-                            if not self.running or self.shutdown.is_set() or not self.commands.empty():break
+                        t=time.perf_counter()
+                        try:
+                            for _ in range(128):
+                                self.step()
+                                if not self.running or self.shutdown.is_set() or not self.commands.empty():break
+                        finally:self.monitor.active+=time.perf_counter()-t
                         if time.monotonic()-self.last_refresh>=self.refresh_interval or not self.running:
-                            for _ in range(8):
-                                if not self.running or not self.commands.empty() or self.shutdown.is_set():break
-                                self.step(True)
+                            t=time.perf_counter()
+                            try:
+                                for _ in range(8):
+                                    if not self.running or not self.commands.empty() or self.shutdown.is_set():break
+                                    self.step(True)
+                            finally:self.monitor.active+=time.perf_counter()-t
                             self.publish()
                         if not self.running or time.monotonic()-self.last_save>=self.a.interval:
                             if self.dirty:self.persist();self.publish()

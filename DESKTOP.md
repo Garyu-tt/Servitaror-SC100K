@@ -28,3 +28,7 @@ Default samples eight guest steps each refresh, with rare operations
 recorded between samples. Optional full mode observes every instruction
 and is slower. Paused diagnostics do not generate guest events.
 Checkpoint format remains unchanged.
+
+## R44 boot monitor
+
+Session and active execution time, average retired instructions per active second, UART silence since observation, and a bounded 512-sample history of successful guest instruction fetches. Alternating 31/37-boundary sampling does not fetch extra instructions. A sustained narrow address set with no UART activity is an advisory heuristic, not proof of deadlock; idle and productive loops are possible. Counters restart on checkpoint resume. A separate diagnostics JSON is written alongside the checkpoint; no change to checkpoint format. Copy diagnostics includes the last 8192 UART characters.

@@ -246,17 +246,38 @@ def main():
             assert w.snapshot['latest'] and len(base64.b64decode(w.snapshot['rgb']))==192000
             w.submit('serial',{'text':'test\n'});assert w.snapshot['rx_free']==27
             if a.self_test:
-                root=tk.Tk();ui=Desktop(root);ui.w=w;root.update();ui.refresh();root.update();assert ui.photo is not None
+                root=tk.Tk()
+                def callback_error(kind,value,tb):
+                    raise value.with_traceback(tb)
+                root.report_callback_exception=callback_error
+                ui=Desktop(root);ui.w=w;root.update();ui.refresh();root.update();assert ui.photo is not None
                 for name in REGIONS:
                     ui.region.set(REGIONS[name][0]);ui.change_region();ui.draw_graph(w.snapshot)
-                assert len(w.snapshot['regions'])==14
+                assert set(w.snapshot['regions'])==set(REGIONS)-set(EXPLICIT)
+                assert set(w.graphs)==set(EXPLICIT)
+                assert len(REGIONS)==18
+                for name in EXPLICIT:
+                    ui.region.set(REGIONS[name][0]);ui.change_region();ui.view.set('Карта активности / состояния');ui.draw_graph(w.snapshot)
+                style=ttk.Style(root)
+                assert style.lookup('TCombobox','foreground',('readonly',))==FG
+                assert style.lookup('TCombobox','fieldbackground',('readonly',))==PANEL
                 root.destroy()
         finally:w.close()
         assert opts.checkpoint.is_file()
-        report=dict(status='PASS',retired=w.snapshot['retired'],frozen=bool(getattr(sys,'frozen',False)),checkpoint=digest(opts.checkpoint),native_files=len(m) if a.prepare_native else None)
+        report=dict(status='PASS',retired=w.snapshot['retired'],frozen=bool(getattr(sys,'frozen',False)),checkpoint=digest(opts.checkpoint),native_files=len(m) if a.prepare_native else None,regions=len(REGIONS),state_regions=len(w.snapshot['regions']))
         if a.report:a.report.write_text(json.dumps(report,indent=2))
         elif sys.stdout:print(json.dumps(report))
         return
     root=tk.Tk();Desktop(root);root.mainloop()
-if __name__=='__main__':main()
+if __name__=='__main__':
+    if '--self-test' in sys.argv or '--prepare-native' in sys.argv:
+        try:main()
+        except BaseException:
+            import traceback
+            error=traceback.format_exc()
+            if '--report' in sys.argv:
+                Path(sys.argv[sys.argv.index('--report')+1]).write_text(json.dumps(dict(status='FAIL',error=error),indent=2),encoding='utf-8')
+            if sys.stderr:sys.stderr.write(error)
+            sys.exit(1)
+    else:main()
 

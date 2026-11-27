@@ -11,4 +11,4 @@ Windows package is unsigned; Windows may present a SmartScreen warning. Do not d
 
 ## R42 diagnostics and performance
 
-17 named regions: three explicit graphs with topology and activation rasters, seven recurrent-state maps, four synaptic memory maps, and math/MMU/timer/atomic counters (some regions share the same hardware). Memory maps show actual Q4 coefficients of the last accessed row, not firing events. No synthetic anatomy. Display refresh selectable from 0.5 to 5 seconds. Native selector and row gates are factored by proven local truth tables; all coefficients remain validated.
+18 named regions: three explicit graphs with topology and activation rasters, seven recurrent-state maps, four synaptic memory maps, and math/MMU/timer/atomic counters (some regions share the same hardware). Memory maps show actual Q4 coefficients of the last accessed row, not firing events. No synthetic anatomy. Display refresh selectable from 0.5 to 5 seconds. Native selector and row gates are factored by proven local truth tables; all coefficients remain validated.

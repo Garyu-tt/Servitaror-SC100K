@@ -48,7 +48,12 @@ jobs:
           OPENBLAS_NUM_THREADS: '1'
         run: |
           $root = (Get-Location).Path
-          $p = Start-Process -FilePath "$root/dist/Servitaror/Servitaror.exe" -ArgumentList '--self-test',"$root/frozen-test",'--report',"$root/frozen-test.json" -Wait -PassThru
+          $p = Start-Process -FilePath "$root/dist/Servitaror/Servitaror.exe" -ArgumentList '--self-test',"$root/frozen-test",'--report',"$root/frozen-test.json" -PassThru
+          if (!$p.WaitForExit(120000)) {
+            Stop-Process -Id $p.Id -Force
+            throw 'Frozen executable self-test exceeded 120 seconds'
+          }
+          if (Test-Path frozen-test.json) { Get-Content frozen-test.json }
           if ($p.ExitCode -ne 0) { throw "Frozen executable exited $($p.ExitCode)" }
           $report = Get-Content frozen-test.json | ConvertFrom-Json
           if ($report.status -ne 'PASS' -or !$report.frozen) { throw 'Frozen self-test failed' }

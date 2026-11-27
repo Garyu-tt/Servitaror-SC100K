@@ -1,0 +1,22 @@
+{
+  "differential": {
+    "delta": 1024,
+    "oracle_checks": 5273,
+    "chunks": 8,
+    "checkpoint_sha256": "f682f25a25999c5e81cf62e364713f3b415a272e3a9971234ef82bbd244635ff",
+    "byte_identical": true
+  },
+  "boot": {
+    "retired": 2957390,
+    "delta": 59995,
+    "oracle_checks": 315235,
+    "chunks": 6,
+    "new_traps": 0,
+    "new_interrupts": 5,
+    "new_returns": 5,
+    "checkpoint_sha256": "eada9593127b7f5481082c3054513942afb480b76fe65f8850c44658a904c5ca",
+    "alu_calls": 14155669,
+    "seconds": 37.958
+  },
+  "limitations": "No completed boot or userspace claim. Bounded execution; remote transport can time out while process continues."
+}

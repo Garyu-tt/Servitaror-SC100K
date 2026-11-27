@@ -11,4 +11,20 @@ Windows package is unsigned; Windows may present a SmartScreen warning. Do not d
 
 ## R42 diagnostics and performance
 
-18 named regions: three explicit graphs with topology and activation rasters, seven recurrent-state maps, four synaptic memory maps, and math/MMU/timer/atomic counters (some regions share the same hardware). Memory maps show actual Q4 coefficients of the last accessed row, not firing events. No synthetic anatomy. Display refresh selectable from 0.5 to 5 seconds. Native selector and row gates are factored by proven local truth tables; all coefficients remain validated.
+17 named regions: three explicit graphs with topology and activation rasters, seven recurrent-state maps, four synaptic memory maps, and math/MMU/timer/atomic counters (some regions share the same hardware). Memory maps show actual Q4 coefficients of the last accessed row, not firing events. No synthetic anatomy. Display refresh selectable from 0.5 to 5 seconds. Native selector and row gates are factored by proven local truth tables; all coefficients remain validated.
+
+## R43 all-region trace
+
+Both topology and activity/state views are available for every region.
+ALU, decoder and control display measured spikes of fixed graphs. Math
+captures actual gate outputs; recurrent regions display sampled operation
+boundaries and rail states; crossbars record the actual selected bank,
+row and column and word coefficients. MMU, IRQ and atomic reservation
+dispatch is explicitly labeled host operation, not spikes. Functional
+diagrams are not individual neuron graphs or anatomical projections.
+History retains 48 events per region, with monotonic sequence and guest
+boundary IDs; counts include observed events, not every internal spike.
+Default samples eight guest steps each refresh, with rare operations
+recorded between samples. Optional full mode observes every instruction
+and is slower. Paused diagnostics do not generate guest events.
+Checkpoint format remains unchanged.

@@ -11,6 +11,7 @@ from neural_trace_r34 import Recorder
 from neural_demo_r35 import Spatial,AXES
 from neural_linux_r12 import fixture
 from region_diagnostics import capture
+from region_trace import RegionTrace
 
 class Workstation:
     def __init__(self,b,a,h):
@@ -24,6 +25,8 @@ class Workstation:
         self.snapshot={};self.last_steps=b.steps;self.last_refresh=self.start;self.ips=0
         self.dirty=False
         self.refresh_interval=1.0
+        self.full_trace=False
+        self.trace=RegionTrace(b)
         old=b.c.run;oldm=b.math.run
         def ar(op,x,y,ablate=False):
             v=old(op,x,y,ablate)
@@ -67,7 +70,8 @@ class Workstation:
             irq=b.interrupts,returns=b.returns,traps=b.traps,walks=b.walks,
             rx_free=b.rx.size-b.rx.count,error=self.error,trap=self.trap,
             poweroff=b.poweroff,checkpoint=self.saved,coordinates=bool(self.spatial),
-            scope='Sampled ALU / decoder / control activity; RAM and recurrent states inspected separately',
+            scope='Explicit spike samples; observed region operations and state; host dispatch labeled',
+            trace=self.trace.snapshot(),full_trace=self.full_trace,
             regions=capture(b,self.cache),
             fixture=self.a.fixture)
     def persist(self):
@@ -78,11 +82,15 @@ class Workstation:
         self.last_save=time.monotonic();self.dirty=False
     def step(self,sample=False):
         b=self.b;before=b.traps
-        if sample:
-            self.rec.events.clear();self.rec.step()
-            self.latest={e['region']:e for e in self.rec.events}
-            self.sample_boundary=b.boundaries;self.rec.events.clear()
-        else:b.step()
+        self.trace.active=True;self.trace.sampled=bool(sample or self.full_trace)
+        try:
+            if self.trace.sampled:
+                self.rec.events.clear();self.rec.step()
+                self.latest.update({e['region']:e for e in self.rec.events})
+                self.trace.explicit(self.rec.events)
+                self.sample_boundary=b.boundaries;self.rec.events.clear()
+            else:b.step()
+        finally:self.trace.active=False;self.trace.sampled=False
         self.dirty=True
         if b.traps!=before:
             self.running=False
@@ -100,6 +108,9 @@ class Workstation:
             if self.error or self.b.poweroff:raise ValueError('runtime stopped')
             self.trap=None;self.step(True)
         elif op=='save':self.persist()
+        elif op=='trace_mode':
+            if type(data.get('full')) is not bool:raise ValueError('trace mode')
+            self.full_trace=data['full']
         elif op=='refresh_rate':
             v=data.get('seconds')
             if v not in (.5,1.0,2.0,5.0):raise ValueError('refresh interval')
@@ -107,12 +118,18 @@ class Workstation:
         elif op=='serial':
             s=data.get('text')
             if not isinstance(s,str) or not 1<=len(s.encode())<=32:raise ValueError('UART limit: 1..32 bytes')
-            if not self.b.uart_input(s.encode()):raise ValueError('UART RX full')
+            self.trace.active=True
+            try:
+                if not self.b.uart_input(s.encode()):raise ValueError('UART RX full')
+            finally:self.trace.active=False
             self.dirty=True
         elif op=='key':
             k=data.get('code');p=data.get('pressed')
             if type(k)!=int or not 1<=k<=255 or type(p)!=bool:raise ValueError('key')
-            if not self.b.keyboard.push(k,p):raise ValueError('keyboard FIFO full')
+            self.trace.active=True
+            try:
+                if not self.b.keyboard.push(k,p):raise ValueError('keyboard FIFO full')
+            finally:self.trace.active=False
             self.dirty=True
         else:raise ValueError('unknown action')
     def submit(self,op,data=None):
@@ -139,7 +156,9 @@ class Workstation:
                             self.step()
                             if not self.running or self.shutdown.is_set() or not self.commands.empty():break
                         if time.monotonic()-self.last_refresh>=self.refresh_interval or not self.running:
-                            if self.running and self.commands.empty() and not self.shutdown.is_set():self.step(True)
+                            for _ in range(8):
+                                if not self.running or not self.commands.empty() or self.shutdown.is_set():break
+                                self.step(True)
                             self.publish()
                         if not self.running or time.monotonic()-self.last_save>=self.a.interval:
                             if self.dirty:self.persist();self.publish()

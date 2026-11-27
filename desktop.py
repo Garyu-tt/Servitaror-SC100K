@@ -67,6 +67,9 @@ class Desktop:
         ttk.Label(ratebar,text='Обновление диагностики, с:').pack(side='left')
         ratebox=ttk.Combobox(ratebar,textvariable=self.rate,values=['0.5','1.0','2.0','5.0'],state='readonly',width=5)
         ratebox.pack(side='left',padx=6);ratebox.bind('<<ComboboxSelected>>',lambda e:self.action('refresh_rate',seconds=float(self.rate.get())))
+        self.fulltrace=tk.BooleanVar(value=False)
+        ttk.Checkbutton(ratebar,text='Каждая инструкция (медленнее)',variable=self.fulltrace,
+            command=lambda:self.action('trace_mode',full=bool(self.fulltrace.get()))).pack(side='left',padx=6)
         self.brain=tk.Canvas(left,bg='#090e0b',highlightbackground='#34463a',highlightthickness=1);self.brain.pack(fill='both',expand=True)
         self.graphinfo=tk.StringVar(value='Реальные связи графа появятся после загрузки');ttk.Label(left,textvariable=self.graphinfo,wraplength=600,foreground=MUTED).pack(anchor='w',pady=6)
         self.metrics=tk.StringVar(value='Нет активной системы')
@@ -126,7 +129,7 @@ class Desktop:
         return 'break'
     def change_region(self,event=None):
         name=LABELS[self.region.get()]
-        views=list(VIEWS)[:2] if name in EXPLICIT else [list(VIEWS)[1]]
+        views=list(VIEWS)[:2]
         if name in EXPLICIT and self.w and self.w.spatial:views=list(VIEWS)
         self.viewbox.configure(values=views)
         if self.view.get() not in views:self.view.set(views[0])
@@ -134,24 +137,25 @@ class Desktop:
     def draw_graph(self,s):
         name=LABELS[self.region.get()];view=VIEWS[self.view.get()]
         if name not in EXPLICIT:
-            self.draw_region(s,name);return
+            self.draw_region(s,name,view);return
         g=self.w.graphs[name]
         c=self.brain;w,h=max(c.winfo_width(),20),max(c.winfo_height(),20)
-        key=(name,view,w,h,s['sample_boundary'])
+        key=(name,view,w,h,s['trace'][name]['count'],s['sample_boundary'])
         if key==self.graphkey:return
         self.graphkey=key;c.delete('all')
+        self.trace_band(s,name)
         ev=s['latest'].get(name)
         if view=='raster':
             bits=bytes.fromhex(ev['rail_bits']) if ev else b''
             values=[(bits[i//8]>>(i%8))&1 for i in range(g['neurons']//5)] if bits else []
-            self.raster(values,128,0,lambda x:GREEN if x else '#24342a')
+            self.raster(values,128,72,lambda x:GREEN if x else '#24342a')
             self.graphinfo.set(REGIONS[name][1]+f" · {g['neurons']:,} нейронов. Реальные спайки последнего измеренного вычисления; 1 ячейка = 5 синхронных нейронов.")
             return
         pts=g['views'].get(view,g['views']['circuit'])
         lo=[min(p[i] for p in pts) for i in (0,1)];hi=[max(p[i] for p in pts) for i in (0,1)]
-        sx=(w-24)/max(hi[0]-lo[0],1e-9);sy=(h-24)/max(hi[1]-lo[1],1e-9)
+        sx=(w-24)/max(hi[0]-lo[0],1e-9);sy=max(1,h-96)/max(hi[1]-lo[1],1e-9)
         if view!='circuit':sx=sy=min(sx,sy)
-        xy=[(12+(p[0]-lo[0])*sx,12+(p[1]-lo[1])*sy) for p in pts]
+        xy=[(12+(p[0]-lo[0])*sx,84+(p[1]-lo[1])*sy) for p in pts]
         bits=bytes.fromhex(ev['rail_bits']) if ev else b''
         active=[bool(bits[i//40]&(1<<((i//5)%8))) if i//40<len(bits) else False for i in g['ids']]
         for i,j,_ in g['edges']:c.create_line(*xy[i],*xy[j],fill='#6ca779' if active[i] and active[j] else '#2b4031')
@@ -167,26 +171,65 @@ class Desktop:
         for i,x in enumerate(values):
             a=8+(i%cols)*sx;b=8+offset+(i//cols)*sy
             c.create_rectangle(a,b,a+max(.5,sx-.6),b+max(.5,sy-.6),fill=color(x),outline='')
-    def draw_region(self,s,name):
+    def trace_band(self,s,name):
+        c=self.brain;w=max(c.winfo_width(),20);t=s['trace'][name];e=t['latest']
+        label=f"Трасса: {t['count']:,} событий (последние 48)"
+        if e:label+=f"  |  #{e['boundary']}  {e['op']}  [{e['kind']}]"
+        else:label+='  |  событий пока нет'
+        c.create_text(8,8,anchor='nw',text=label,fill=FG,width=w-16,font=('Consolas',10))
+        history=t['history'];dx=max(1,(w-16)/48)
+        for i,event in enumerate(history):
+            color='#dc9363' if event['error'] else '#9de6aa' if event['kind'].startswith('measured') else '#689aab' if event['kind'].startswith('host') else '#6ba679'
+            x=8+i*dx;c.create_rectangle(x,44,x+max(.5,dx-1),58,fill=color,outline='')
+        return e
+    def draw_region(self,s,name,view):
         d=s['regions'][name];c=self.brain
-        w,h=max(c.winfo_width(),20),max(c.winfo_height(),20)
-        key=(name,w,h,s['boundary'],str(d['stats']))
+        w,h=max(c.winfo_width(),20),max(c.winfo_height(),20);t=s['trace'][name]
+        key=(name,view,w,h,s['boundary'],t['count'],str(d['stats']))
         if key==self.graphkey:return
         self.graphkey=key;c.delete('all')
-        stat=d['stats'];kind=d['kind']
+        e=self.trace_band(s,name);stat=d['stats'];kind=d['kind']
         self.graphinfo.set(REGIONS[name][1]+(' · '+f"{d['cells']:,} логических нейронов (оценка)" if d['cells'] is not None else ' · Общие контуры / хост; отдельная нейросеть отсутствует'))
+        if view=='circuit':
+            stages=t['stages'];dx=max(1,(w-36)/max(1,len(stages)));y=max(118,min(h-85,155))
+            for i,label in enumerate(stages):
+                x=18+i*dx;right=x+max(5,dx-12)
+                if i:c.create_line(x-12,y,x,y,fill='#526c58',arrow='last')
+                c.create_rectangle(x,y-30,right,y+30,fill='#294b34' if e and (e['route'] is not None or i in (0,len(stages)-1)) else PANEL,outline='#526c58')
+                c.create_text((x+right)/2,y,text=label,width=max(5,dx-17),fill=FG,font=('Segoe UI',9))
+            info='Функциональная схема, не индивидуальные синапсы.'
+            if e:
+                info+=f"\nСобытие #{e['seq']} / {e['op']} · аргументы {str(e['args'])[:130]}\nРезультат: {str(e['result'])[:80]}"
+                if e['route'] is not None:info+=f"\nФактический маршрут (банк, строка, колонка): {e['route']}"
+                if e['error']:info+='\nОшибка: '+e['error']
+            else:info+='\nНет зарегистрированных событий.'
+            c.create_text(12,y+43,anchor='nw',text=info,width=w-24,fill=FG)
+            return
         if kind=='weights':
             raw=list(bytes.fromhex(d['bits']));cols=d['shape'][1]
-            c.create_text(8,8,anchor='nw',text=f"Банк {stat['bank']} / строка {stat['row']} / колонка {stat['col']}\nЧтений {stat['reads']:,} | Записей {stat['writes']:,}\nПоследняя операция: {stat['last']}\nРеальные пары Q4-весов (не спайки)",fill=FG,font=('Consolas',10))
-            self.raster(raw,cols,85,lambda x:'#93dca0' if x==0x71 else '#344b3b' if x==0x17 else '#dc9363')
-        elif kind=='rails':
-            raw=bytes.fromhex(d['bits']);n=d['shape'][0]*10
+            c.create_text(8,72,anchor='nw',text=f"Банк {stat['bank']} / строка {stat['row']} / колонка {stat['col']}\nЧтений {stat['reads']:,} | Записей {stat['writes']:,}\nПоследняя операция: {stat['last']} · Q4 веса, не спайки",fill=FG,font=('Consolas',10))
+            if e and 'weights' in e:
+                observed=bytes.fromhex(e['weights']);dx=max(1,(w-16)/32)
+                for i,x in enumerate(observed):
+                    c.create_rectangle(8+i*dx,135,8+(i+1)*dx-1,146,fill='#93dca0' if x==0x71 else '#344b3b' if x==0x17 else '#dc9363',outline='')
+                c.create_text(8,150,anchor='nw',text=f"Слово последнего измеренного доступа: {e['route']}",fill=MUTED)
+            self.raster(raw,cols,177,lambda x:'#93dca0' if x==0x71 else '#344b3b' if x==0x17 else '#dc9363')
+        elif kind=='rails' or name=='math':
+            ev=next((v for v in reversed(t['history']) if 'bits' in v),None)
+            if ev:
+                raw=bytes.fromhex(ev['bits']);n=ev['shape'][0]*10
+                title=f"Измеренные рельсы события #{ev['seq']} ({ev['op']})"
+            elif kind=='rails':
+                raw=bytes.fromhex(d['bits']);n=d['shape'][0]*10;title='Текущее сохранённое состояние; события не измерены'
+            else:
+                raw=b'';n=0;title='Ожидание нейронной арифметики RV32M'
             values=[sum((raw[j//8]>>(j%8))&1 for j in range(i,i+5)) for i in range(0,n,5)]
             stats=' | '.join(f'{k}: {v}' for k,v in stat.items() if k!='addresses')
-            c.create_text(8,8,anchor='nw',text=stats+'\nРеальные состояния групп из 5 клеток, не события спайков.',width=w-16,fill=FG)
-            self.raster(values,80,60,lambda x:GREEN if x==5 else '#293c30' if x==0 else '#dc9363')
+            c.create_text(8,72,anchor='nw',text=title+'\n'+stats,width=w-16,fill=FG)
+            self.raster(values,80,136,lambda x:GREEN if x==5 else '#293c30' if x==0 else '#dc9363')
         else:
-            c.create_text(16,16,anchor='nw',text='\n'.join(f'{k}: {v}' for k,v in stat.items())+'\n\nДоступны реальные счётчики; отдельной трассировки\nэтой области пока нет.',fill=FG,font=('Consolas',12),width=w-32)
+            c.create_text(12,72,anchor='nw',text='\n'.join(f'{k}: {v}' for k,v in stat.items())+'\n\nСобытия хоста, не нейронные спайки.',fill=FG,font=('Consolas',10),width=w-24)
+            if e:c.create_text(12,max(200,h-75),anchor='nw',text=f"{e['op']} {str(e['args'])[:90]} → {str(e['result'])[:90]}",fill=GREEN,width=w-24)
     def refresh(self):
         if self.closing:return
         if self.result:
@@ -252,9 +295,13 @@ def main():
                 root.report_callback_exception=callback_error
                 ui=Desktop(root);ui.w=w;root.update();ui.refresh();root.update();assert ui.photo is not None
                 for name in REGIONS:
-                    ui.region.set(REGIONS[name][0]);ui.change_region();ui.draw_graph(w.snapshot)
+                    ui.region.set(REGIONS[name][0]);ui.change_region()
+                    for view in list(VIEWS)[:2]:
+                        ui.view.set(view);ui.draw_graph(w.snapshot)
                 assert set(w.snapshot['regions'])==set(REGIONS)-set(EXPLICIT)
                 assert set(w.graphs)==set(EXPLICIT)
+                assert set(w.snapshot['trace'])==set(REGIONS)
+                assert w.snapshot['trace']['ram']['count']>0
                 assert len(REGIONS)==18
                 for name in EXPLICIT:
                     ui.region.set(REGIONS[name][0]);ui.change_region();ui.view.set('Карта активности / состояния');ui.draw_graph(w.snapshot)
@@ -280,4 +327,5 @@ if __name__=='__main__':
             if sys.stderr:sys.stderr.write(error)
             sys.exit(1)
     else:main()
+
 

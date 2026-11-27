@@ -28,6 +28,11 @@ jobs:
         run: |
           gcc --version
           python desktop.py --prepare-native prebuilt --report native-test.json --cc gcc
+      - name: Exercise all 18 regions with guest instructions
+        shell: msys2 {0}
+        env:
+          OPENBLAS_NUM_THREADS: '1'
+        run: python test_region_trace.py --build-dir prebuilt/native --checkpoint trace-fixture.npz --output region-trace-test.json --cc gcc
       - name: Stage only verified C sources and compiled libraries
         shell: pwsh
         run: |
@@ -62,7 +67,7 @@ jobs:
         shell: pwsh
         run: |
           Copy-Item DESKTOP.md dist/Servitaror/README.txt
-          Copy-Item native-test.json,frozen-test.json dist/Servitaror/
+          Copy-Item native-test.json,frozen-test.json,region-trace-test.json dist/Servitaror/
           Compress-Archive -Path dist/Servitaror -DestinationPath Servitaror-Windows-x64.zip
           Get-FileHash Servitaror-Windows-x64.zip -Algorithm SHA256 | Format-List | Out-File Servitaror-Windows-x64.sha256.txt
       - uses: actions/upload-artifact@v4

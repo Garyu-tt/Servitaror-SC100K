@@ -94,7 +94,9 @@ class Native:
         def route(a,ablate):
             if type(a) is not int or not 0<=a<m.n:raise ValueError('address')
             p,o=divmod(a,m.rows*m.cols);r,c=divmod(o,m.cols)
-            return m.weights[self.select(m.bank,p,ablate),self.select(m.row,r,ablate)],self.select(m.col,c,ablate)
+            bank=self.select(m.bank,p,ablate);row=self.select(m.row,r,ablate);col=self.select(m.col,c,ablate)
+            m.last_route=(bank,row,col)
+            return m.weights[bank,row],col
         def read(a,ablate=False):
             row,c=route(a,ablate);v=ctypes.c_uint32()
             if self.rd(row.ctypes.data,c,m.cols,ctypes.byref(v)):raise RuntimeError('invalid memory rails')

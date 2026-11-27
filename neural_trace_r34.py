@@ -6,6 +6,7 @@ one guest step, not an individual GENESIS simulation tick.
 """
 import argparse,ctypes,hashlib,json,random,time
 from pathlib import Path
+from native_bundle import native_library
 import numpy as np
 import neural_packed_r24 as packed
 from neural_io_r33 import restore,save,upgrade,state
@@ -38,10 +39,7 @@ class TracePacked(packed.Packed):
         import subprocess
         key=hashlib.sha256(source.encode()).hexdigest()[:20]
         root=args.build_dir;c=root/(key+'.c');o=root/(key+'.o');so=root/(key+'.so');c.write_text(source)
-        if args.ld:
-            subprocess.run([args.cc,'-c','-o',str(o),str(c)],check=True)
-            subprocess.run([args.ld,'-shared','-z','noexecstack','-o',str(so),str(o)],check=True)
-        else:subprocess.run([args.cc,'-O2','-fPIC','-shared','-Wl,-z,noexecstack','-o',str(so),str(c)],check=True)
+        so=native_library(c,so,args.cc,args.ld,opt=2)
         self.lib=ctypes.CDLL(str(so.resolve()));self.fn=self.lib.evaluate
         ptr=ctypes.POINTER(ctypes.c_uint32);self.fn.argtypes=[ptr,ctypes.c_int,ptr,ctypes.POINTER(ctypes.c_ubyte)];self.fn.restype=ctypes.c_int
         self.trace=(ctypes.c_ubyte*(n//5))();self.sink=None

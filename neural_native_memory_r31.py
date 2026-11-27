@@ -4,6 +4,7 @@ Row/bank routing uses the unique firing selector output, not the input index.
 """
 import argparse,ctypes,hashlib,json,random,subprocess,tempfile,time
 from pathlib import Path
+from native_bundle import native_library
 import numpy as np
 from neural_paged_r29 import PagedCrossbar
 from neural_hippocampus_r27 import votes
@@ -77,10 +78,7 @@ class Native:
     def __init__(self,a):
         root=a.build_dir;root.mkdir(parents=True,exist_ok=True)
         k=hashlib.sha256(C.encode()).hexdigest()[:20];c=root/(k+'.c');o=root/(k+'.o');so=root/(k+'.so');c.write_text(C)
-        if a.ld:
-            subprocess.run([a.cc,'-c','-o',str(o),str(c)],check=True)
-            subprocess.run([a.ld,'-shared','-z','noexecstack','-o',str(so),str(o)],check=True)
-        else:subprocess.run([a.cc,'-O3','-fPIC','-shared','-Wl,-z,noexecstack','-o',str(so),str(c)],check=True)
+        so=native_library(c,so,a.cc,a.ld,opt=3)
         self.lib=ctypes.CDLL(str(so.resolve()));ptr=ctypes.c_void_p;u=ctypes.c_uint32;i=ctypes.c_int
         self.sel=self.lib.select_row;self.sel.argtypes=[u,i,i,ptr,ptr,i];self.sel.restype=i
         self.rd=self.lib.read_row;self.rd.argtypes=[ptr,i,i,ctypes.POINTER(u)];self.rd.restype=i

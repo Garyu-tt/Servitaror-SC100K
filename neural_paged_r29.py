@@ -90,7 +90,7 @@ class SynapticBoard(Board):
 def neural_snapshot(b,h):
     if b.ram is not None:raise ValueError('ordinary RAM is present')
     m=dict(schema=2,image_hash=h,ram_bytes=b.memory.n*4,geometry=list(b.memory.weights.shape),
-        counters={k:getattr(b,k) for k in COUNTERS},timer=vars(b.timer).copy(),
+        counters={k:getattr(b,k) for k in COUNTERS},timer={k:getattr(b.timer,k) for k in ("now","compare","software","external","supervisor_timer")},
         reservation=b.reservation,deadline=b.deadline,poweroff=b.poweroff,halted=b.halted,
         csr_addresses=sorted(b.csrs.state),fixed_addresses=sorted(b.csrs.fixed),
         reg_counts=[b.reg.reads,b.reg.writes],csr_counts=[b.csrs.reads,b.csrs.writes],

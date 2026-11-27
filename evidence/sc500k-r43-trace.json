@@ -1,0 +1,27 @@
+{
+  "status": "PASS",
+  "regions": 18,
+  "events": {
+    "alu": 23,
+    "decoder": 12,
+    "control": 12,
+    "registers": 31,
+    "pc": 36,
+    "csr": 47,
+    "priv": 30,
+    "math": 984,
+    "ram": 16,
+    "disk": 2,
+    "framebuffer": 1,
+    "palette": 1,
+    "gpu": 1,
+    "keyboard": 2,
+    "uart": 3,
+    "mmu": 23,
+    "timer": 12,
+    "atomic": 1
+  },
+  "retired": 12,
+  "checkpoint_sha256": "2eda89d216b7898a1845f586fe8fd887cdf9d6a1862633b948ff7a851feab518",
+  "idle_no_events": true
+}

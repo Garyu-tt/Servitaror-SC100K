@@ -6,6 +6,7 @@ No integer shadow file or indexing a register by guest address.
 """
 import argparse,ctypes,hashlib,json,random,subprocess,tempfile,time
 from pathlib import Path
+from native_bundle import native_library
 import numpy as np
 from neural_register_r03 import RegisterBank,validate
 from neural_linux_r12 import load_image,fixture
@@ -85,10 +86,7 @@ class Engine:
     def __init__(self,root,cc,ld):
         root=Path(root);root.mkdir(parents=True,exist_ok=True)
         c=root/'recurrent.c';o=root/'recurrent.o';so=root/'recurrent.so';c.write_text(SOURCE)
-        if ld:
-            subprocess.run([cc,'-c','-o',str(o),str(c)],check=True)
-            subprocess.run([ld,'-shared','-z','noexecstack','-o',str(so),str(o)],check=True)
-        else:subprocess.run([cc,'-O2','-fPIC','-shared','-Wl,-z,noexecstack','-o',str(so),str(c)],check=True)
+        so=native_library(c,so,cc,ld,opt=2)
         self.lib=ctypes.CDLL(str(so.resolve()));p=ctypes.c_void_p;u=ctypes.c_uint32;i=ctypes.c_int
         for n,args in [('reg_read',[p,p,u,i,p]),('reg_write',[p,p,p,u,u,i]),('feedback_read',[p,i,p]),('feedback_write',[p,i,u,i])]:
             fn=getattr(self.lib,n);fn.argtypes=args;fn.restype=i

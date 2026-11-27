@@ -41,10 +41,10 @@ class Quotient:
             lines.extend([f' r{p[0][0]//5}=1-bits[{i}]',f' r{p[1][0]//5}=bits[{i}]'])
         for r in sorted(range(n//5),key=lambda r:level[5*r]):
             if not groups[r]:continue
-            terms='+'.join(f'({w}*r{s})' for s,w in sorted(groups[r].items()))
+            terms='sum(('+','.join(f'({w}*r{s})' for s,w in sorted(groups[r].items()))+',))'
             # clip(current//3,-32,31)>=11 iff current>=33.
             lines.append(f' r{r}=int(enabled and ({terms})>=33)')
-        lines.append(' return ('+','.join(f'(r{p[0][0]//5},r{p[1][0]//5})' for p in outputs)+',),5*('+ '+'.join(f'r{r}' for r in range(n//5))+')')
+        lines.append(' return ('+','.join(f'(r{p[0][0]//5},r{p[1][0]//5})' for p in outputs)+',),5*sum(('+ ','.join(f'r{r}' for r in range(n//5))+',))')
         ns={};exec(compile('\n'.join(lines),'<verified-synaptic-quotient>','exec'),ns)
         self.evaluate=ns['evaluate']
         self.groups=len(groups)

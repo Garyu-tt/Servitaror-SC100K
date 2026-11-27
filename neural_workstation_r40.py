@@ -2,7 +2,7 @@
 The worker owns guest state and runs independently of the browser. Visualization
 samples actual neural evaluations; structural layout is not anatomical XYZ.
 """
-import argparse,base64,hashlib,json,queue,threading,time,webbrowser
+import argparse,base64,hashlib,json,os,queue,threading,time,webbrowser
 from pathlib import Path
 from http.server import ThreadingHTTPServer,BaseHTTPRequestHandler
 import numpy as np
@@ -10,6 +10,9 @@ from neural_uart_r36 import fresh,restore,save,PageCache,oracle,moracle
 from neural_trace_r34 import Recorder
 from neural_demo_r35 import Spatial,AXES
 from neural_linux_r12 import fixture
+from region_diagnostics import capture
+from region_trace import RegionTrace
+from boot_monitor import BootMonitor
 
 class Workstation:
     def __init__(self,b,a,h):
@@ -22,6 +25,10 @@ class Workstation:
         self.commands=queue.Queue(64);self.shutdown=threading.Event()
         self.snapshot={};self.last_steps=b.steps;self.last_refresh=self.start;self.ips=0
         self.dirty=False
+        self.refresh_interval=1.0
+        self.full_trace=False
+        self.trace=RegionTrace(b)
+        self.monitor=BootMonitor(b)
         old=b.c.run;oldm=b.math.run
         def ar(op,x,y,ablate=False):
             v=old(op,x,y,ablate)
@@ -65,7 +72,9 @@ class Workstation:
             irq=b.interrupts,returns=b.returns,traps=b.traps,walks=b.walks,
             rx_free=b.rx.size-b.rx.count,error=self.error,trap=self.trap,
             poweroff=b.poweroff,checkpoint=self.saved,coordinates=bool(self.spatial),
-            scope='Sampled ALU / decoder / control activity; RAM and devices not traced',
+            scope='Explicit spike samples; observed region operations and state; host dispatch labeled',
+            trace=self.trace.snapshot(),full_trace=self.full_trace,boot=self.monitor.report(),
+            regions=capture(b,self.cache),
             fixture=self.a.fixture)
     def persist(self):
         if self.error:raise RuntimeError('unsafe state after host error')
@@ -73,13 +82,27 @@ class Workstation:
         self.saved=dict(path=str(self.a.checkpoint),retired=self.b.steps,
             sha256=hashlib.sha256(self.a.checkpoint.read_bytes()).hexdigest())
         self.last_save=time.monotonic();self.dirty=False
+        # Diagnostic sidecar is deliberately outside the authoritative checkpoint.
+        report=dict(boot=self.monitor.report(),checkpoint=self.saved,pc=hex(self.b.pc),
+            irq=self.b.interrupts,traps=self.b.traps,mode=self.b.mode,
+            uart=bytes(self.b.serial[-8192:]).decode(errors='replace'))
+        sidecar=self.a.checkpoint.with_suffix('.diagnostics.json')
+        tmp=sidecar.with_suffix('.json.tmp')
+        try:
+            tmp.write_text(json.dumps(report,indent=2),encoding='utf-8');os.replace(tmp,sidecar)
+        except OSError:
+            pass
     def step(self,sample=False):
         b=self.b;before=b.traps
-        if sample:
-            self.rec.events.clear();self.rec.step()
-            self.latest={e['region']:e for e in self.rec.events}
-            self.sample_boundary=b.boundaries;self.rec.events.clear()
-        else:b.step()
+        self.trace.active=True;self.trace.sampled=bool(sample or self.full_trace)
+        try:
+            if self.trace.sampled:
+                self.rec.events.clear();self.rec.step()
+                self.latest.update({e['region']:e for e in self.rec.events})
+                self.trace.explicit(self.rec.events)
+                self.sample_boundary=b.boundaries;self.rec.events.clear()
+            else:b.step()
+        finally:self.trace.active=False;self.trace.sampled=False
         self.dirty=True
         if b.traps!=before:
             self.running=False
@@ -95,17 +118,32 @@ class Workstation:
         elif op=='step':
             self.running=False
             if self.error or self.b.poweroff:raise ValueError('runtime stopped')
-            self.trap=None;self.step(True)
+            self.trap=None;t=time.perf_counter()
+            try:self.step(True)
+            finally:self.monitor.active+=time.perf_counter()-t
         elif op=='save':self.persist()
+        elif op=='trace_mode':
+            if type(data.get('full')) is not bool:raise ValueError('trace mode')
+            self.full_trace=data['full']
+        elif op=='refresh_rate':
+            v=data.get('seconds')
+            if v not in (.5,1.0,2.0,5.0):raise ValueError('refresh interval')
+            self.refresh_interval=v
         elif op=='serial':
             s=data.get('text')
             if not isinstance(s,str) or not 1<=len(s.encode())<=32:raise ValueError('UART limit: 1..32 bytes')
-            if not self.b.uart_input(s.encode()):raise ValueError('UART RX full')
+            self.trace.active=True
+            try:
+                if not self.b.uart_input(s.encode()):raise ValueError('UART RX full')
+            finally:self.trace.active=False
             self.dirty=True
         elif op=='key':
             k=data.get('code');p=data.get('pressed')
             if type(k)!=int or not 1<=k<=255 or type(p)!=bool:raise ValueError('key')
-            if not self.b.keyboard.push(k,p):raise ValueError('keyboard FIFO full')
+            self.trace.active=True
+            try:
+                if not self.b.keyboard.push(k,p):raise ValueError('keyboard FIFO full')
+            finally:self.trace.active=False
             self.dirty=True
         else:raise ValueError('unknown action')
     def submit(self,op,data=None):
@@ -128,11 +166,19 @@ class Workstation:
                 except queue.Empty:pass
                 if self.running:
                     try:
-                        for _ in range(128):
-                            self.step()
-                            if not self.running or self.shutdown.is_set() or not self.commands.empty():break
-                        if time.monotonic()-self.last_refresh>=.6 or not self.running:
-                            if self.running and self.commands.empty() and not self.shutdown.is_set():self.step(True)
+                        t=time.perf_counter()
+                        try:
+                            for _ in range(128):
+                                self.step()
+                                if not self.running or self.shutdown.is_set() or not self.commands.empty():break
+                        finally:self.monitor.active+=time.perf_counter()-t
+                        if time.monotonic()-self.last_refresh>=self.refresh_interval or not self.running:
+                            t=time.perf_counter()
+                            try:
+                                for _ in range(8):
+                                    if not self.running or not self.commands.empty() or self.shutdown.is_set():break
+                                    self.step(True)
+                            finally:self.monitor.active+=time.perf_counter()-t
                             self.publish()
                         if not self.running or time.monotonic()-self.last_save>=self.a.interval:
                             if self.dirty:self.persist();self.publish()

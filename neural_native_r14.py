@@ -5,6 +5,7 @@ No ISA operations or guest instruction batching in generated C.
 """
 import argparse,ctypes,hashlib,json,os,random,subprocess,tempfile,time
 from pathlib import Path
+from native_bundle import native_library
 import numpy as np
 import neural_resume_r13 as r13
 from neural_linux_r12 import load_image,fixture
@@ -35,11 +36,7 @@ class NativeQuotient(r13.Quotient):
         root=Path(self.build_dir);root.mkdir(parents=True,exist_ok=True)
         c=root/(key+'.c');so=root/(key+'.so');obj=root/(key+'.o')
         c.write_text(source)
-        if self.linker:
-            subprocess.run([self.compiler,'-c','-o',str(obj),str(c)],check=True)
-            subprocess.run([self.linker,'-shared','-z','noexecstack','-o',str(so),str(obj)],check=True)
-        else:
-            subprocess.run([self.compiler,'-O2','-fPIC','-shared','-Wl,-z,noexecstack','-o',str(so),str(c)],check=True)
+        so=native_library(c,so,self.compiler,self.linker,opt=2)
         self.lib=ctypes.CDLL(str(so.resolve()));self.fn=self.lib.evaluate
         self.fn.argtypes=[ctypes.POINTER(ctypes.c_ubyte),ctypes.c_int,ctypes.POINTER(ctypes.c_ubyte)]
         self.fn.restype=ctypes.c_int

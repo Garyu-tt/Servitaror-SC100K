@@ -1,0 +1,204 @@
+{
+  "boot": {
+    "session_seconds": 7.0,
+    "active_seconds": 1.071,
+    "session_retired": 2834,
+    "average_ips": 2646,
+    "uart_silent_seconds": 5.9,
+    "uart_silent_instructions": 265,
+    "uart_observed_since_resume": true,
+    "uart_bytes": 1,
+    "samples": 84,
+    "unique_pc": 2,
+    "top_pc": [
+      {
+        "pc": "0x8040004c",
+        "samples": 83
+      },
+      {
+        "pc": "0x80400000",
+        "samples": 1
+      }
+    ],
+    "top8_fraction": 1.0,
+    "narrow_window_seconds": 0.0,
+    "possible_loop": false,
+    "last_fetch": {
+      "boundary": 2820,
+      "pc": "0x8040004c",
+      "word": "0x0000006f"
+    },
+    "recent_fetches": [
+      {
+        "boundary": 1769,
+        "pc": "0x8040004c",
+        "word": "0x0000006f"
+      },
+      {
+        "boundary": 1800,
+        "pc": "0x8040004c",
+        "word": "0x0000006f"
+      },
+      {
+        "boundary": 1837,
+        "pc": "0x8040004c",
+        "word": "0x0000006f"
+      },
+      {
+        "boundary": 1868,
+        "pc": "0x8040004c",
+        "word": "0x0000006f"
+      },
+      {
+        "boundary": 1905,
+        "pc": "0x8040004c",
+        "word": "0x0000006f"
+      },
+      {
+        "boundary": 1936,
+        "pc": "0x8040004c",
+        "word": "0x0000006f"
+      },
+      {
+        "boundary": 1973,
+        "pc": "0x8040004c",
+        "word": "0x0000006f"
+      },
+      {
+        "boundary": 2004,
+        "pc": "0x8040004c",
+        "word": "0x0000006f"
+      },
+      {
+        "boundary": 2041,
+        "pc": "0x8040004c",
+        "word": "0x0000006f"
+      },
+      {
+        "boundary": 2072,
+        "pc": "0x8040004c",
+        "word": "0x0000006f"
+      },
+      {
+        "boundary": 2109,
+        "pc": "0x8040004c",
+        "word": "0x0000006f"
+      },
+      {
+        "boundary": 2140,
+        "pc": "0x8040004c",
+        "word": "0x0000006f"
+      },
+      {
+        "boundary": 2177,
+        "pc": "0x8040004c",
+        "word": "0x0000006f"
+      },
+      {
+        "boundary": 2208,
+        "pc": "0x8040004c",
+        "word": "0x0000006f"
+      },
+      {
+        "boundary": 2245,
+        "pc": "0x8040004c",
+        "word": "0x0000006f"
+      },
+      {
+        "boundary": 2276,
+        "pc": "0x8040004c",
+        "word": "0x0000006f"
+      },
+      {
+        "boundary": 2313,
+        "pc": "0x8040004c",
+        "word": "0x0000006f"
+      },
+      {
+        "boundary": 2344,
+        "pc": "0x8040004c",
+        "word": "0x0000006f"
+      },
+      {
+        "boundary": 2381,
+        "pc": "0x8040004c",
+        "word": "0x0000006f"
+      },
+      {
+        "boundary": 2412,
+        "pc": "0x8040004c",
+        "word": "0x0000006f"
+      },
+      {
+        "boundary": 2449,
+        "pc": "0x8040004c",
+        "word": "0x0000006f"
+      },
+      {
+        "boundary": 2480,
+        "pc": "0x8040004c",
+        "word": "0x0000006f"
+      },
+      {
+        "boundary": 2517,
+        "pc": "0x8040004c",
+        "word": "0x0000006f"
+      },
+      {
+        "boundary": 2548,
+        "pc": "0x8040004c",
+        "word": "0x0000006f"
+      },
+      {
+        "boundary": 2585,
+        "pc": "0x8040004c",
+        "word": "0x0000006f"
+      },
+      {
+        "boundary": 2616,
+        "pc": "0x8040004c",
+        "word": "0x0000006f"
+      },
+      {
+        "boundary": 2653,
+        "pc": "0x8040004c",
+        "word": "0x0000006f"
+      },
+      {
+        "boundary": 2684,
+        "pc": "0x8040004c",
+        "word": "0x0000006f"
+      },
+      {
+        "boundary": 2721,
+        "pc": "0x8040004c",
+        "word": "0x0000006f"
+      },
+      {
+        "boundary": 2752,
+        "pc": "0x8040004c",
+        "word": "0x0000006f"
+      },
+      {
+        "boundary": 2789,
+        "pc": "0x8040004c",
+        "word": "0x0000006f"
+      },
+      {
+        "boundary": 2820,
+        "pc": "0x8040004c",
+        "word": "0x0000006f"
+      }
+    ]
+  },
+  "checkpoint": {
+    "path": "/var/tmp/sc500k-r44/fixture.npz",
+    "retired": 2834,
+    "sha256": "17c062552600e517928abe0e6cc1ee38b0ddaa08ccc1a9b41ca9044b2190eb36"
+  },
+  "pc": "0x8040004c",
+  "irq": 0,
+  "traps": 0,
+  "mode": 1,
+  "uart": "X"
+}
